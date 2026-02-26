@@ -43,7 +43,8 @@ export default function Home() {
       title: 'Google Gemini Campaign',
       description: 'Campaign concept exploring AI consciousness and human potential, visualizing where thoughts become reality.',
       image: geminiCampaignImg,
-      tags: ['AI/ML', 'Campaign', 'Concept']
+      tags: ['AI/ML', 'Campaign', 'Concept'],
+      link: '/projects/gemini'
     }
   ];
 
