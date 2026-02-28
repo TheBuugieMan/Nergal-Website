@@ -12,8 +12,10 @@ import { ConstellationLines } from '../components/ConstellationLines';
 import { ChaosBlur } from '../components/ChaosBlur';
 import { AnimatedHands } from '../components/AnimatedHands';
 import { ProjectCard } from '../components/ProjectCard';
+import { useIsMobile } from '../components/ui/use-mobile';
 
 export default function Home() {
+  const isMobile = useIsMobile();
   const { scrollYProgress } = useScroll();
   const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
   const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.95]);
@@ -61,11 +63,11 @@ export default function Home() {
         style={{ opacity: heroOpacity, scale: heroScale }}
         className="relative min-h-screen flex flex-col items-center justify-center px-6 overflow-hidden"
       >
-        {/* Constellation Lines */}
-        <ConstellationLines />
+        {/* Constellation Lines — hidden on mobile for performance */}
+        {!isMobile && <ConstellationLines />}
 
-        {/* Background Flickering Stars */}
-        {[...Array(30)].map((_, i) => (
+        {/* Background Flickering Stars — none on mobile to avoid choppiness */}
+        {!isMobile && [...Array(30)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute w-1 h-1 bg-white rounded-full"
@@ -87,13 +89,13 @@ export default function Home() {
           />
         ))}
 
-        {/* Celestial Sphere */}
+        {/* Celestial Sphere — simplified on mobile */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" style={{ zIndex: 2 }}>
           <ChaosBlur />
         </div>
 
-        {/* Animated Hands */}
-        <AnimatedHands />
+        {/* Animated Hands — hidden on mobile for performance */}
+        {!isMobile && <AnimatedHands />}
 
         {/* Hero Content */}
         <motion.div

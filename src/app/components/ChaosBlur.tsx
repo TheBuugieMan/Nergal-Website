@@ -3,17 +3,39 @@ import { useEffect, useState } from 'react';
 
 export function ChaosBlur() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
 
   useEffect(() => {
+    const mql = window.matchMedia('(max-width: 767px)');
+    const onResize = () => setIsMobile(window.innerWidth < 768);
+    mql.addEventListener('change', onResize);
+    return () => mql.removeEventListener('change', onResize);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) return;
     const handleMouseMove = (e: MouseEvent) => {
       const x = (e.clientX / window.innerWidth - 0.5) * 20;
       const y = (e.clientY / window.innerHeight - 0.5) * 20;
       setMousePosition({ x, y });
     };
-
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  }, [isMobile]);
+
+  if (isMobile) {
+    return (
+      <div className="relative w-[400px] h-[400px] md:w-[700px] md:h-[700px]">
+        <div
+          className="absolute inset-0 rounded-full"
+          style={{
+            background: 'radial-gradient(circle, rgba(255, 215, 0, 0.25) 0%, rgba(255, 140, 0, 0.15) 30%, rgba(139, 0, 0, 0.1) 50%, transparent 70%)',
+            filter: 'blur(50px)',
+          }}
+        />
+      </div>
+    );
+  }
 
   return (
     <motion.div

@@ -2,6 +2,9 @@ import '../../styles/gemini.css';
 
 import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
+import { CampaignVisualsSection } from './gemini/CampaignVisualsSection';
+import { CampaignWorkSection } from './gemini/CampaignWorkSection';
+import { CaseStudySection } from './gemini/CaseStudySection';
 import { CTASection } from './gemini/CTASection';
 import { CustomCursor } from './gemini/CustomCursor';
 import { FromOneToManySection } from './gemini/FromOneToManySection';
@@ -43,6 +46,9 @@ export default function GeminiCampaignCase() {
       <InteractiveDemoSection />
       <MultimodalitySection />
       <FromOneToManySection />
+      <CampaignVisualsSection />
+      <CampaignWorkSection />
+      <CaseStudySection />
       <CTASection />
     </div>
   );

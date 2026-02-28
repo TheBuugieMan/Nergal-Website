@@ -28,6 +28,8 @@ interface ImportMetaEnv {
   readonly MODE: string;
   readonly DEV: boolean;
   readonly PROD: boolean;
+  /** Base URL of the Vercel chat API (e.g. https://your-project.vercel.app). No API key here. */
+  readonly VITE_CHAT_API_BASE_URL?: string;
   [key: string]: unknown;
 }
 

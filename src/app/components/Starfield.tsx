@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface Star {
   x: number;
@@ -12,6 +12,14 @@ interface Star {
 
 export function Starfield() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
+
+  useEffect(() => {
+    const mql = window.matchMedia('(max-width: 767px)');
+    const onResize = () => setIsMobile(window.innerWidth < 768);
+    mql.addEventListener('change', onResize);
+    return () => mql.removeEventListener('change', onResize);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -20,7 +28,6 @@ export function Starfield() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set canvas size
     const setCanvasSize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -28,44 +35,37 @@ export function Starfield() {
     setCanvasSize();
     window.addEventListener('resize', setCanvasSize);
 
-    // Create stars
-    const starCount = 200;
+    const starCount = isMobile ? 40 : 200;
     const stars: Star[] = [];
-    
+
     for (let i = 0; i < starCount; i++) {
       stars.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         size: Math.random() * 2 + 0.5,
-        speed: Math.random() * 0.05 + 0.02,
+        speed: isMobile ? 0 : Math.random() * 0.05 + 0.02,
         opacity: Math.random() * 0.5 + 0.3,
-        twinkleSpeed: Math.random() * 0.02 + 0.01,
+        twinkleSpeed: isMobile ? 0.005 : Math.random() * 0.02 + 0.01,
         twinkleOffset: Math.random() * Math.PI * 2
       });
     }
 
-    // Animation
     let animationFrameId: number;
     let time = 0;
 
     const animate = () => {
       ctx.fillStyle = '#050505';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      time += 0.01;
+      time += isMobile ? 0.02 : 0.01;
 
       stars.forEach((star) => {
-        // Twinkling effect
         const twinkle = Math.sin(time * star.twinkleSpeed + star.twinkleOffset) * 0.3 + 0.7;
-        
-        // Draw star
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity * twinkle})`;
         ctx.fill();
 
-        // Add glow for larger stars
-        if (star.size > 1.5) {
+        if (!isMobile && star.size > 1.5) {
           const gradient = ctx.createRadialGradient(
             star.x, star.y, 0,
             star.x, star.y, star.size * 4
@@ -76,11 +76,12 @@ export function Starfield() {
           ctx.fillRect(star.x - star.size * 4, star.y - star.size * 4, star.size * 8, star.size * 8);
         }
 
-        // Slow vertical movement
-        star.y += star.speed;
-        if (star.y > canvas.height) {
-          star.y = 0;
-          star.x = Math.random() * canvas.width;
+        if (!isMobile) {
+          star.y += star.speed;
+          if (star.y > canvas.height) {
+            star.y = 0;
+            star.x = Math.random() * canvas.width;
+          }
         }
       });
 
@@ -93,7 +94,7 @@ export function Starfield() {
       window.removeEventListener('resize', setCanvasSize);
       cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <canvas
