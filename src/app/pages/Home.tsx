@@ -653,9 +653,7 @@ export default function Home() {
                 <h2 className="text-4xl md:text-5xl text-white font-mono text-center" style={{ fontWeight: 700 }}>
                   LET'S_CONNECT
                 </h2>
-                <div className="text-[#8B0000] font-mono text-xs">
-                  <p>{'═'.repeat(60)}</p>
-                </div>
+                <div className="w-full h-px bg-gradient-to-r from-transparent via-[#8B0000] to-transparent" />
               </div>
 
               <p className="text-lg text-gray-400 font-mono text-center">
