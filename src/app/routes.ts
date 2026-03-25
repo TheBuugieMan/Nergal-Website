@@ -23,3 +23,4 @@ export const router = createBrowserRouter(
     basename: import.meta.env.BASE_URL,
   }
 );
+// The router is exported here and used in main.tsx to wrap the entire app.
