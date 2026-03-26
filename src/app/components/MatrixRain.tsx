@@ -72,8 +72,8 @@ export function MatrixRain() {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute top-0 left-0 w-full pointer-events-none opacity-20 z-0"
-      style={{ height: '100%' }}
+      className="fixed inset-0 w-full pointer-events-none z-[1] opacity-[0.14] sm:opacity-[0.17] md:opacity-20"
+      style={{ minHeight: '100%' }}
     />
   );
 }

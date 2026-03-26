@@ -16,10 +16,8 @@ import { ProjectCard } from '../components/ProjectCard';
 import { MatrixRain } from '../components/MatrixRain';
 import { TerminalText } from '../components/TerminalText';
 import { TerminalWindow } from '../components/TerminalWindow';
-import { useIsMobile } from '../components/ui/use-mobile';
 
 export default function Home() {
-  const isMobile = useIsMobile();
   const { scrollYProgress } = useScroll();
   const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
   const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.95]);
@@ -56,10 +54,9 @@ export default function Home() {
 
   return (
     <div className="relative bg-[#050505] min-h-screen overflow-x-hidden">
-      {/* Starfield Background */}
+      {/* Starfield (back) + matrix rain (mid) — both fixed behind content */}
       <Starfield />
-      
-      {/* Matrix Rain Background */}\n      {!isMobile && <MatrixRain />}
+      <MatrixRain />
 
       {/* Navbar */}
       <Navbar />
