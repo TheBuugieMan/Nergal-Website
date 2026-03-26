@@ -54,9 +54,14 @@ export default function Home() {
 
   return (
     <div className="relative bg-[#050505] min-h-screen overflow-x-hidden">
-      {/* Starfield (back) + matrix rain (mid) — both fixed behind content */}
+      {/* Starfield full page; matrix only below first screen (hero stays clear) */}
       <Starfield />
-      <MatrixRain />
+      <div
+        className="pointer-events-none absolute top-[100svh] right-0 bottom-0 left-0 z-[1]"
+        aria-hidden
+      >
+        <MatrixRain />
+      </div>
 
       {/* Navbar */}
       <Navbar />
