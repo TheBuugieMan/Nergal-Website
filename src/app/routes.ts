@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { RootLayout } from "./RootLayout";
 import Home from "./pages/Home";
+import Blog from "./pages/Blog";
 import HigherConnectionsCase from "./pages/HigherConnectionsCase";
 import HeroJourneyCase from "./pages/HeroJourneyCase";
 import GeminiCampaignCase from "./pages/GeminiCampaignCase";
@@ -12,6 +13,7 @@ export const router = createBrowserRouter(
       Component: RootLayout,
       children: [
         { index: true, Component: Home },
+        { path: "blog", Component: Blog },
         { path: "projects/higher-connections", Component: HigherConnectionsCase },
         { path: "projects/heros-journey", Component: HeroJourneyCase },
         { path: "projects/gemini", Component: GeminiCampaignCase },

@@ -17,7 +17,7 @@ export function Navbar() {
   }, []);
 
   const scrollToSection = (id: string) => {
-    // If not on home page, navigate to home first
+    // Primary one-page sections live on /
     if (location.pathname !== '/') {
       navigate('/');
       // Wait for navigation, then scroll
@@ -42,6 +42,24 @@ export function Navbar() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
+
+  const goToRouteTop = (target: string) => {
+    if (location.pathname === target) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    navigate(target);
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
+  };
+
+  const navItems = [
+    { label: 'Projects', type: 'section', target: 'projects' },
+    { label: 'Blog', type: 'route', target: '/blog' },
+    { label: 'About Me', type: 'section', target: 'about-me' },
+    { label: 'Contact', type: 'section', target: 'contact' },
+  ] as const;
 
   return (
     <motion.nav
@@ -82,15 +100,21 @@ export function Navbar() {
               }}
               onClick={goHome}
             >
-              <span className="text-[#8B0000]">{'>'}</span> NERGAL'S_PORTFOLIO
+              <span className="text-[#8B0000]">{'>'}</span> NERGAL LABS
             </motion.div>
 
             {/* Navigation Links */}
             <div className="flex items-center gap-6 md:gap-8">
-              {['Projects', 'About Me', 'Contact'].map((item, i) => (
+              {navItems.map((item, i) => (
                 <motion.button
-                  key={item}
-                  onClick={() => scrollToSection(item.toLowerCase().replace(' ', '-'))}
+                  key={item.label}
+                  onClick={() => {
+                    if (item.type === 'route') {
+                      goToRouteTop(item.target);
+                      return;
+                    }
+                    scrollToSection(item.target);
+                  }}
                   whileHover={{ scale: 1.1, color: '#FFD700' }}
                   whileTap={{ scale: 0.95 }}
                   initial={{ opacity: 0, y: -20 }}
@@ -98,7 +122,7 @@ export function Navbar() {
                   transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
                   className="text-white text-base md:text-lg font-mono tracking-wide transition-colors duration-300 hover:text-[#FFD700] relative group whitespace-nowrap"
                 >
-                  <span className="text-[#FFD700] mr-1">$</span>{item.toLowerCase().replace(' ', '_')}
+                  <span className="text-[#FFD700] mr-1">$</span>{item.label.toLowerCase().replace(' ', '_')}
                   <motion.div
                     className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#FFD700]"
                     initial={{ scaleX: 0 }}
