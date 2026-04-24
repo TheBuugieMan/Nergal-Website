@@ -475,7 +475,7 @@ export default function Portfolio() {
                       <div className="w-64 h-64 rounded bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border-2 border-[#FFD700]/30 overflow-hidden relative">
                         <img 
                           src={portraitImage} 
-                          alt="Nergal Prescod" 
+                          alt="Nergal Labs" 
                           className="w-full h-full object-cover"
                         />
                       </div>
@@ -682,7 +682,7 @@ export default function Portfolio() {
             {/* Terminal-style footer left */}
             <div className="text-gray-600 text-sm font-mono">
               <span className="text-[#8B0000] mr-2">{'>'}</span>
-              <span>© 2026 Nergal Prescod. Crafted with intention.</span>
+              <span>© 2026 Nergal Labs. Crafted with intention.</span>
             </div>
             
             {/* Footer decorative elements */}

@@ -56,8 +56,8 @@ export function Navbar() {
 
   const navItems = [
     { label: 'Projects', type: 'section', target: 'projects' },
-    { label: 'Blog', type: 'route', target: '/blog' },
     { label: 'About Me', type: 'section', target: 'about-me' },
+    { label: 'Blog', type: 'route', target: '/blog' },
     { label: 'Contact', type: 'section', target: 'contact' },
   ] as const;
 

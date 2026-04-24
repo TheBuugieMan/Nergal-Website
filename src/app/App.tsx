@@ -14,7 +14,7 @@ export default function App() {
     document.getElementsByTagName('head')[0].appendChild(link);
     
     // Set page title
-    document.title = 'Nergal Prescod | Software Engineer & Creative Technologist';
+    document.title = 'Nergal Labs | Software Engineer & Creative Technologist';
   }, []);
 
   return (

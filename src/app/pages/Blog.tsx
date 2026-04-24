@@ -182,8 +182,8 @@ export default function Blog() {
             aria-hidden
           />
 
-          <div className="absolute inset-0 bg-gradient-to-b from-[#07110b]/45 via-[#0a140f]/62 to-[#050706]/88" aria-hidden />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_25%_20%,rgba(88,156,109,0.28),transparent_55%),radial-gradient(ellipse_at_75%_80%,rgba(212,182,114,0.18),transparent_50%)]" aria-hidden />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#07110b]/16 via-[#0a140f]/24 to-[#050706]/38" aria-hidden />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_25%_20%,rgba(88,156,109,0.18),transparent_55%),radial-gradient(ellipse_at_75%_80%,rgba(212,182,114,0.12),transparent_50%)]" aria-hidden />
 
           {/* Lightweight ambient particles */}
           <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
