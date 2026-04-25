@@ -73,7 +73,7 @@ export function Navbar() {
         scrolled ? 'bg-[#0a0a0a]/95 backdrop-blur-md' : 'bg-[#0a0a0a]/80 backdrop-blur-sm'
       } border-b border-[#FFD700]/30 shadow-lg shadow-[#FFD700]/10`}>
         {/* Terminal Window Header */}
-        <div className="flex items-center gap-2 px-6 md:px-12 py-2 border-b border-[#FFD700]/20 bg-gradient-to-r from-[#1a1a1a] to-[#0a0a0a]">
+        <div className="flex items-center gap-2 px-4 sm:px-6 md:px-12 py-2 border-b border-[#FFD700]/20 bg-gradient-to-r from-[#1a1a1a] to-[#0a0a0a]">
           {/* Terminal Buttons */}
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-[#8B0000]" />
@@ -81,18 +81,20 @@ export function Navbar() {
             <div className="w-3 h-3 rounded-full bg-[#00FF00]" />
           </div>
           {/* Terminal Title */}
-          <div className="flex-1 text-center">
-            <span className="text-xs font-mono text-gray-500">~/navigation/menu.sh</span>
+          <div className="flex-1 min-w-0 text-center">
+            <span className="block truncate text-[10px] sm:text-xs font-mono text-gray-500">
+              ~/navigation/menu.sh
+            </span>
           </div>
         </div>
 
         {/* Navigation Content */}
-        <div className="px-6 md:px-12 py-4">
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0">
+        <div className="px-4 sm:px-6 md:px-12 py-3 md:py-4">
+          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 md:gap-0">
             {/* Logo */}
             <motion.div
               whileHover={{ scale: 1.05 }}
-              className="text-xl md:text-2xl tracking-wider cursor-pointer text-center md:text-left font-mono"
+              className="text-lg sm:text-xl md:text-2xl tracking-wide sm:tracking-wider cursor-pointer text-center md:text-left font-mono max-w-full px-1"
               style={{
                 color: '#FFD700',
                 fontWeight: 700,
@@ -100,11 +102,14 @@ export function Navbar() {
               }}
               onClick={goHome}
             >
-              <span className="text-[#8B0000]">{'>'}</span> NERGAL LABS
+              <span className="text-[#8B0000]">{'>'}</span>{' '}
+              <span className="whitespace-normal sm:whitespace-nowrap break-words">
+                NERGAL LABS
+              </span>
             </motion.div>
 
             {/* Navigation Links */}
-            <div className="flex items-center gap-6 md:gap-8">
+            <div className="flex w-full max-w-full flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:gap-x-6 md:w-auto md:flex-nowrap md:justify-end md:gap-8">
               {navItems.map((item, i) => (
                 <motion.button
                   key={item.label}
@@ -120,7 +125,7 @@ export function Navbar() {
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
-                  className="text-white text-base md:text-lg font-mono tracking-wide transition-colors duration-300 hover:text-[#FFD700] relative group whitespace-nowrap"
+                  className="text-white text-sm sm:text-base md:text-lg font-mono tracking-wide transition-colors duration-300 hover:text-[#FFD700] relative group whitespace-nowrap px-0.5"
                 >
                   <span className="text-[#FFD700] mr-1">$</span>{item.label.toLowerCase().replace(' ', '_')}
                   <motion.div
