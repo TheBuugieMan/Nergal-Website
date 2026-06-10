@@ -2,7 +2,7 @@ import { motion } from 'motion/react';
 import { ArrowLeft, Clock, Calendar, Image as ImageIcon } from 'lucide-react';
 import { Link } from 'react-router';
 import { useEffect } from 'react';
-import finalImage from '../../assets/f9a5704d2ff95176ce1aa6fb9a8de1f9fa9477bc.png';
+import finalImage from '../../assets/b1690fe8a93e3c70cee3a0d3ecc54cb27c25f0a9.png';
 import statsImage from '../../assets/b9727c24a154ce242dd377ad8c36d1a27a51eae1.png';
 import layersImage from '../../assets/b4425baf3ac627567e91cd995362ae36800212de.png';
 import moonVersionImage from '../../assets/581193dab79d9b0e97a67842176435eb5000aa58.png';
@@ -58,11 +58,6 @@ export default function HeroJourneyCase() {
             <h1 className="text-5xl md:text-7xl text-white" style={{ fontWeight: 300 }}>
               The Hero's Journey
             </h1>
-
-            {/* Japanese subtitle */}
-            <p className="text-3xl md:text-4xl text-[#FFD700]" style={{ fontWeight: 300 }}>
-              悟り (Satori)
-            </p>
 
             {/* Stats Bar */}
             <div className="flex flex-wrap gap-8 py-6 border-y border-[#1a1a1a]">

@@ -32,35 +32,46 @@ export default function Portfolio() {
     { label: 'Contact', action: () => scrollToSection('contact') },
   ];
 
-  const projects = [
+  const featuredHero = {
+    title: "Hero's Journey",
+    description:
+      'An immersive narrative experience mapping personal transformation through symbolic storytelling and AI-driven insights.',
+    image: herosJourneyImg,
+    tags: ['Storytelling', 'Creative Tech', 'Web'],
+    link: '/projects/heros-journey',
+    featured: true,
+    portrait: true,
+    featuredLabel: 'FEATURED WORK',
+  };
+
+  const sideProjects = [
     {
       title: 'Higher Connections',
-      description: 'A platform exploring consciousness, spirituality, and human connection through interactive multimedia experiences.',
+      description:
+        'A platform exploring consciousness, spirituality, and human connection through interactive multimedia experiences.',
       image: higherConnectionsImg,
       tags: ['Interactive', 'Multimedia', 'AI'],
-      link: '/projects/higher-connections'
-    },
-    {
-      title: "Hero's Journey",
-      description: 'An immersive narrative experience mapping personal transformation through symbolic storytelling and AI-driven insights.',
-      image: herosJourneyImg,
-      tags: ['Storytelling', 'Creative Tech', 'Web'],
-      link: '/projects/heros-journey'
+      link: '/projects/higher-connections',
     },
     {
       title: 'Graffiti Magazine',
-      description: 'A digital publication celebrating urban art, street culture, and the intersection of technology and creative expression.',
+      description:
+        'A digital publication celebrating urban art, street culture, and the intersection of technology and creative expression.',
       image: graffitiMagImg,
-      tags: ['Editorial', 'Design', 'Culture']
+      tags: ['Editorial', 'Design', 'Culture'],
     },
-    {
-      title: 'Google Gemini Campaign',
-      description: 'Campaign concept exploring AI consciousness and human potential, visualizing where thoughts become reality.',
-      image: geminiCampaignImg,
-      tags: ['AI/ML', 'Campaign', 'Concept'],
-      link: '/projects/gemini'
-    }
   ];
+
+  const featuredCampaign = {
+    title: 'Google Gemini Campaign',
+    description:
+      'Campaign concept exploring AI consciousness and human potential, visualizing where thoughts become reality.',
+    image: geminiCampaignImg,
+    tags: ['AI/ML', 'Campaign', 'Concept'],
+    link: '/projects/gemini',
+    featured: true,
+    featuredLabel: 'CAMPAIGN \u2014 FEATURED WORK',
+  };
 
   return (
     <div className="relative bg-[#050505] min-h-screen overflow-x-hidden">
@@ -241,11 +252,19 @@ export default function Portfolio() {
             </div>
           </motion.div>
 
-          {/* Bento Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {projects.map((project, index) => (
-              <ProjectCard key={index} {...project} index={index} />
+          {/* Bento Grid: portrait hero on the left, two stacked cards on the right */}
+          <div className="grid grid-cols-1 md:grid-cols-2 md:auto-rows-fr gap-8">
+            <div className="md:row-span-2 md:h-full">
+              <ProjectCard {...featuredHero} index={0} />
+            </div>
+            {sideProjects.map((project, index) => (
+              <ProjectCard key={project.title} {...project} index={index + 1} />
             ))}
+          </div>
+
+          {/* Full-width featured campaign below */}
+          <div className="mt-8">
+            <ProjectCard {...featuredCampaign} index={3} />
           </div>
         </div>
       </section>

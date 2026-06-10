@@ -2,6 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import { RootLayout } from "./RootLayout";
 import Home from "./pages/Home";
 import Blog from "./pages/Blog";
+import VerdantiaStory from "./pages/VerdantiaStory";
+import UnityProtocolStory from "./pages/UnityProtocolStory";
 import HigherConnectionsCase from "./pages/HigherConnectionsCase";
 import HeroJourneyCase from "./pages/HeroJourneyCase";
 import GeminiCampaignCase from "./pages/GeminiCampaignCase";
@@ -14,6 +16,8 @@ export const router = createBrowserRouter(
       children: [
         { index: true, Component: Home },
         { path: "blog", Component: Blog },
+        { path: "blog/verdantia", Component: VerdantiaStory },
+        { path: "blog/unity-protocol", Component: UnityProtocolStory },
         { path: "projects/higher-connections", Component: HigherConnectionsCase },
         { path: "projects/heros-journey", Component: HeroJourneyCase },
         { path: "projects/gemini", Component: GeminiCampaignCase },

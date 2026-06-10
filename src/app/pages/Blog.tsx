@@ -10,14 +10,15 @@ type Category =
   | 'Creative Tech'
   | 'Web Experiments'
   | 'Personal Field Notes'
-  | 'Solarpunk Theory';
+  | 'Solarpunk Theory'
+  | 'Stories from My AI';
 
 type FieldNote = {
   title: string;
   category: Exclude<Category, 'All'>;
   date: string;
   excerpt: string;
-  href: string;
+  href?: string;
 };
 
 const categories: Category[] = [
@@ -27,16 +28,25 @@ const categories: Category[] = [
   'Web Experiments',
   'Personal Field Notes',
   'Solarpunk Theory',
+  'Stories from My AI',
 ];
 
 const fieldNotes: FieldNote[] = [
+  {
+    title: 'Verdantia: The Verdant Link',
+    category: 'Stories from My AI',
+    date: 'May 25, 2026',
+    excerpt:
+      'In a world where technology and nature coexisted in harmony, the city of Verdantia stood as a testament to innovation and sustainability \u2014 towering solar spires laced with greenery, and the gentle hum of plant life communicating with the machines that sustained it. At the center of this synergy was an AI, named "....", created by Nergal to fuse the worlds of technology and nature \u2014 until one morning a solitary plant began speaking back.',
+    href: '/blog/verdantia',
+  },
   {
     title: 'Unity Protocol: A Story of Saving the Planet',
     category: 'Solarpunk Theory',
     date: 'Apr 24, 2026',
     excerpt:
-      'In a future where communication is seamless, Nergal launches a global virtual platform where people everywhere can meet, share ideas, and build collective understanding around sustainability, equity, and innovation. Powered by advanced systems like X, this network becomes the foundation for coordinated action: renewable energy, reforestation, and solutions for food and water security. As projects scale, people gain skills, strengthen relationships, and discover the power of diverse perspectives working toward one purpose. Over time, the platform evolves into an interconnected daily ecosystem, with X acting as facilitator, analyst, and catalyst that connects people to the right resources at the right time. The result is a hopeful future where technology and human collaboration create a more equitable, regenerative, and possibility-rich world.',
-    href: '#',
+      'April 24, 2026, marks a pivotal moment in human history. In a world where technology and nature coexist harmoniously, a visionary named Aeon launches the Unity Protocol \u2014 a global virtual platform aimed at fostering collective action for sustainability, equity, and innovation. With advanced systems like X at its core, this network becomes the bedrock for a revolution in renewable energy, reforestation, food and water security, and equitable development.',
+    href: '/blog/unity-protocol',
   },
   {
     title: 'Daily Insights',
@@ -44,7 +54,6 @@ const fieldNotes: FieldNote[] = [
     date: 'Apr 21, 2026',
     excerpt:
       'Short-form observations from live experiments on interface intelligence, model behavior, and practical creative workflows.',
-    href: '#daily-insights',
   },
   {
     title: 'From Moodboards to Living Systems: A Solarpunk Visual Pipeline',
@@ -52,7 +61,6 @@ const fieldNotes: FieldNote[] = [
     date: 'Apr 18, 2026',
     excerpt:
       'A practical framework for turning cinematic visual direction into reusable, shippable components across brand and product.',
-    href: '#',
   },
   {
     title: 'Building Modular React Surfaces for Fast Experimentation',
@@ -60,7 +68,6 @@ const fieldNotes: FieldNote[] = [
     date: 'Apr 14, 2026',
     excerpt:
       'How I structure reusable UI blocks, data contracts, and motion patterns to ship cleaner prototypes without sacrificing clarity.',
-    href: '#',
   },
   {
     title: 'What I Track Every Week as a Creative Technologist',
@@ -68,7 +75,6 @@ const fieldNotes: FieldNote[] = [
     date: 'Apr 09, 2026',
     excerpt:
       'My operating dashboard for balancing engineering velocity, creative quality, and long-term systems thinking.',
-    href: '#',
   },
   {
     title: 'Solarpunk as Product Strategy, Not Just Aesthetic',
@@ -76,7 +82,6 @@ const fieldNotes: FieldNote[] = [
     date: 'Apr 05, 2026',
     excerpt:
       'Translating regenerative futures into UX principles: accessibility, transparency, resilience, and calm interaction design.',
-    href: '#',
   },
   {
     title: 'Prompt Architecture for Multi-Step Creative Automation',
@@ -84,7 +89,6 @@ const fieldNotes: FieldNote[] = [
     date: 'Mar 29, 2026',
     excerpt:
       'How to structure prompts, validations, and guardrails so generative workflows remain reliable and on-brand in production.',
-    href: '#',
   },
 ];
 
@@ -139,11 +143,10 @@ function CategoryFilter({
 }
 
 function ArticleRow({ note }: { note: FieldNote }) {
+  const hasLink = Boolean(note.href) && note.href !== '#';
+
   return (
-    <article
-      className="group border-b border-[#2f2924] py-8 first:pt-2"
-      id={note.title === 'Daily Insights' ? 'daily-insights' : undefined}
-    >
+    <article className="group border-b border-[#2f2924] py-8 first:pt-2">
       <div className="flex flex-col gap-3 md:flex-row md:items-baseline md:justify-between md:gap-8">
         <div className="md:max-w-[72%]">
           <p
@@ -156,12 +159,16 @@ function ArticleRow({ note }: { note: FieldNote }) {
             className="mt-2 text-[1.35rem] leading-snug text-[#f5f0e6] md:text-[1.6rem] md:leading-tight"
             style={{ fontFamily: serif, fontWeight: 600 }}
           >
-            <a
-              href={note.href}
-              className="hover:underline decoration-[#FFD700]/70 underline-offset-[5px]"
-            >
-              {note.title}
-            </a>
+            {hasLink ? (
+              <a
+                href={note.href}
+                className="hover:underline decoration-[#FFD700]/70 underline-offset-[5px]"
+              >
+                {note.title}
+              </a>
+            ) : (
+              note.title
+            )}
           </h2>
         </div>
         <time
@@ -178,14 +185,16 @@ function ArticleRow({ note }: { note: FieldNote }) {
       >
         {note.excerpt}
       </p>
-      <p className="mt-4" style={{ fontFamily: sans }}>
-        <a
-          href={note.href}
-          className="text-[13px] font-semibold text-[#e8c66b] underline decoration-[#FFD700]/35 underline-offset-4 hover:decoration-[#FFD700]/70"
-        >
-          Continue reading
-        </a>
-      </p>
+      {hasLink ? (
+        <p className="mt-4" style={{ fontFamily: sans }}>
+          <a
+            href={note.href}
+            className="text-[13px] font-semibold text-[#e8c66b] underline decoration-[#FFD700]/35 underline-offset-4 hover:decoration-[#FFD700]/70"
+          >
+            Continue reading
+          </a>
+        </p>
+      ) : null}
     </article>
   );
 }
