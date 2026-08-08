@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { ArrowUpRight, Sparkles } from 'lucide-react';
 import { Link } from 'react-router';
+import { HoverPreviewVideo } from './HoverPreviewVideo';
 
 interface ProjectCardProps {
   title: string;
@@ -12,6 +13,11 @@ interface ProjectCardProps {
   featured?: boolean;
   featuredLabel?: string;
   portrait?: boolean;
+  video?: string;
+  videoFit?: 'cover' | 'contain';
+  interactive?: boolean;
+  fillHeight?: boolean;
+  wrapperClassName?: string;
 }
 
 export function ProjectCard({
@@ -24,44 +30,136 @@ export function ProjectCard({
   featured,
   featuredLabel,
   portrait,
+  video,
+  videoFit = 'cover',
+  interactive = true,
+  fillHeight = false,
+  wrapperClassName = '',
 }: ProjectCardProps) {
   if (featured) {
+    const isClickable = interactive && Boolean(link);
+    const useSplitVideoLayout = Boolean(video && videoFit === 'contain' && !portrait);
     const imageSizingClasses = portrait
       ? 'relative h-[560px] sm:h-[640px] md:h-full md:min-h-[720px] overflow-hidden'
       : 'relative h-[360px] md:h-[520px] overflow-hidden';
 
-    const FeaturedContent = (
+    const titleBlock = (
+      <>
+        <h3 className="text-3xl font-light leading-[1.05] tracking-tight text-white transition-colors duration-500 group-hover:text-[#FFD700] md:text-4xl lg:text-5xl">
+          {title}
+        </h3>
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-gray-300 md:text-base">
+          {description}
+        </p>
+        <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
+          <div className="flex flex-wrap gap-2">
+            {tags.map((tag, i) => (
+              <span
+                key={i}
+                className="rounded-full border border-[#FFD700]/30 bg-[#FFD700]/10 px-3 py-1 font-mono text-xs text-[#FFD700]"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+          {isClickable && (
+            <motion.div
+              whileHover={{ x: 4 }}
+              className="inline-flex items-center gap-2 font-mono text-sm text-[#FFD700]"
+            >
+              <span>Open case study</span>
+              <ArrowUpRight className="h-5 w-5" />
+            </motion.div>
+          )}
+        </div>
+      </>
+    );
+
+    const featuredBadge = (
+      <div className="absolute left-5 top-5 z-10 md:left-7 md:top-7">
+        <motion.div
+          animate={{ opacity: [0.85, 1, 0.85] }}
+          transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
+          className="inline-flex items-center gap-2 rounded-full border border-[#FFD700]/45 bg-[#050505]/65 px-3 py-1.5 backdrop-blur"
+        >
+          <Sparkles className="h-3.5 w-3.5 text-[#FFD700]" />
+          <span className="font-mono text-[10px] tracking-[0.22em] text-[#FFD700] md:text-[11px]">
+            {featuredLabel ?? 'FEATURED WORK'}
+          </span>
+        </motion.div>
+      </div>
+    );
+
+    const glowBorder = (
+      <motion.div
+        className="pointer-events-none absolute inset-0 rounded-lg"
+        animate={{
+          boxShadow: [
+            '0 0 0 1px rgba(255,215,0,0.18), 0 0 30px rgba(255,215,0,0.04)',
+            '0 0 0 1px rgba(255,215,0,0.55), 0 0 50px rgba(255,215,0,0.22)',
+            '0 0 0 1px rgba(255,215,0,0.18), 0 0 30px rgba(255,215,0,0.04)',
+          ],
+        }}
+        transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
+        aria-hidden
+      />
+    );
+
+    const FeaturedContent = useSplitVideoLayout ? (
+      <>
+        <div className="grid min-h-[520px] grid-cols-1 md:grid-cols-[minmax(260px,36%)_1fr]">
+          <div className="relative min-h-[420px] overflow-hidden bg-[#050505] md:min-h-[520px]">
+            <HoverPreviewVideo
+              src={video!}
+              poster={image}
+              className="absolute inset-0 h-full w-full"
+              objectFit="contain"
+            />
+            {featuredBadge}
+          </div>
+
+          <div className="relative flex flex-col justify-end border-t border-[#FFD700]/10 bg-gradient-to-br from-[#0a0a0a] to-[#050505] p-6 md:border-l md:border-t-0 md:p-10">
+            <div className="pointer-events-none absolute right-3 top-3 hidden font-mono text-base text-[#FFD700]/80 md:block">
+              ╗
+            </div>
+            {titleBlock}
+          </div>
+        </div>
+        {glowBorder}
+      </>
+    ) : (
       <>
         {/* Cinematic image */}
-        <div className={imageSizingClasses}>
-          <motion.img
-            src={image}
-            alt={title}
-            className="absolute inset-0 h-full w-full object-cover object-center"
-            initial={{ scale: 1.06 }}
-            whileInView={{ scale: 1.0 }}
-            viewport={{ once: true }}
-            whileHover={{ scale: 1.08 }}
-            transition={{ duration: 1.2, ease: 'easeOut' }}
-          />
+        <div className={`${imageSizingClasses} ${video && videoFit === 'contain' ? 'bg-[#050505]' : ''}`}>
+          {video ? (
+            <motion.div
+              className="absolute inset-0"
+              initial={{ scale: 1.06 }}
+              whileInView={{ scale: 1.0 }}
+              viewport={{ once: true }}
+              whileHover={{ scale: 1.08 }}
+              transition={{ duration: 1.2, ease: 'easeOut' }}
+            >
+              <HoverPreviewVideo src={video} poster={image} className="h-full w-full" objectFit={videoFit} />
+            </motion.div>
+          ) : (
+            <motion.img
+              src={image}
+              alt={title}
+              className="absolute inset-0 h-full w-full object-cover object-center"
+              initial={{ scale: 1.06 }}
+              whileInView={{ scale: 1.0 }}
+              viewport={{ once: true }}
+              whileHover={{ scale: 1.08 }}
+              transition={{ duration: 1.2, ease: 'easeOut' }}
+            />
+          )}
 
           {/* Vignette gradients for legibility */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/55 to-transparent" />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#050505]/55 via-transparent to-[#050505]/30" />
 
-          {/* Featured badge */}
-          <div className="absolute left-5 top-5 md:left-7 md:top-7">
-            <motion.div
-              animate={{ opacity: [0.85, 1, 0.85] }}
-              transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
-              className="inline-flex items-center gap-2 rounded-full border border-[#FFD700]/45 bg-[#050505]/65 px-3 py-1.5 backdrop-blur"
-            >
-              <Sparkles className="h-3.5 w-3.5 text-[#FFD700]" />
-              <span className="font-mono text-[10px] tracking-[0.22em] text-[#FFD700] md:text-[11px]">
-                {featuredLabel ?? 'FEATURED WORK'}
-              </span>
-            </motion.div>
-          </div>
+          {featuredBadge}
 
           {/* Corner accents */}
           <div className="pointer-events-none absolute right-3 top-3 hidden font-mono text-base text-[#FFD700]/80 md:block">
@@ -81,58 +179,19 @@ export function ProjectCard({
           />
 
           {/* Title overlay */}
-          <div className="absolute inset-x-0 bottom-0 p-6 md:p-10">
-            <h3 className="text-3xl font-light leading-[1.05] tracking-tight text-white transition-colors duration-500 group-hover:text-[#FFD700] md:text-5xl">
-              {title}
-            </h3>
-            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-gray-300 md:text-base">
-              {description}
-            </p>
-
-            <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
-              <div className="flex flex-wrap gap-2">
-                {tags.map((tag, i) => (
-                  <span
-                    key={i}
-                    className="rounded-full border border-[#FFD700]/30 bg-[#FFD700]/10 px-3 py-1 font-mono text-xs text-[#FFD700]"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <motion.div
-                whileHover={{ x: 4 }}
-                className="inline-flex items-center gap-2 font-mono text-sm text-[#FFD700]"
-              >
-                <span>Open case study</span>
-                <ArrowUpRight className="h-5 w-5" />
-              </motion.div>
-            </div>
-          </div>
+          <div className="absolute inset-x-0 bottom-0 p-6 md:p-10">{titleBlock}</div>
         </div>
 
-        {/* Animated golden glow border */}
-        <motion.div
-          className="pointer-events-none absolute inset-0 rounded-lg"
-          animate={{
-            boxShadow: [
-              '0 0 0 1px rgba(255,215,0,0.18), 0 0 30px rgba(255,215,0,0.04)',
-              '0 0 0 1px rgba(255,215,0,0.55), 0 0 50px rgba(255,215,0,0.22)',
-              '0 0 0 1px rgba(255,215,0,0.18), 0 0 30px rgba(255,215,0,0.04)',
-            ],
-          }}
-          transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
-          aria-hidden
-        />
+        {glowBorder}
       </>
     );
 
     const featuredClasses =
-      `group relative block ${portrait ? 'h-full' : ''} overflow-hidden rounded-lg border border-[#FFD700]/35 bg-gradient-to-br from-[#0a0a0a] to-[#050505] transition-all duration-500 hover:border-[#FFD700]/70`;
+      `group relative ${isClickable ? 'block cursor-pointer' : 'cursor-default'} ${portrait ? 'h-full' : ''} overflow-hidden rounded-lg border border-[#FFD700]/35 bg-gradient-to-br from-[#0a0a0a] to-[#050505] transition-all duration-500 ${isClickable ? 'hover:border-[#FFD700]/70' : ''}`;
 
     const motionWrapperClasses = portrait ? 'h-full' : '';
 
-    if (link) {
+    if (isClickable && link) {
       return (
         <motion.div
           initial={{ opacity: 0, y: 60 }}
@@ -171,7 +230,7 @@ export function ProjectCard({
       </div>
 
       {/* Image */}
-      <div className="relative h-56 overflow-hidden">
+      <div className={`relative overflow-hidden ${fillHeight ? 'min-h-[140px] flex-1' : 'h-56'}`}>
         <motion.img
           src={image}
           alt={title}
@@ -219,7 +278,7 @@ export function ProjectCard({
   );
 
   const cardClasses =
-    'group relative bg-gradient-to-br from-[#0a0a0a] to-[#050505] rounded-lg overflow-hidden border border-[#1a1a1a] hover:border-[#8B0000] transition-all duration-500 block';
+    `group relative bg-gradient-to-br from-[#0a0a0a] to-[#050505] rounded-lg overflow-hidden border border-[#1a1a1a] hover:border-[#8B0000] transition-all duration-500 block ${fillHeight ? 'flex h-full flex-col' : ''}`;
 
   if (link) {
     return (
@@ -229,6 +288,7 @@ export function ProjectCard({
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: index * 0.1 }}
         whileHover={{ y: -8 }}
+        className={`${wrapperClassName} ${fillHeight ? 'h-full' : ''}`.trim()}
       >
         <Link to={link} className={cardClasses}>
           {CardContent}
@@ -244,7 +304,7 @@ export function ProjectCard({
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
       whileHover={{ y: -8 }}
-      className={cardClasses}
+      className={`${cardClasses} ${wrapperClassName}`.trim()}
     >
       {CardContent}
     </motion.div>

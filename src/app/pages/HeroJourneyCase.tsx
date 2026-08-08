@@ -13,12 +13,13 @@ import blankCanvasImage from '../../assets/81f4c88d28600922647e7a06eb39d07317a5f
 import cityscapeImage from '../../assets/78a22d297e418b0d03eda1dbfe00afd066a128b2.png';
 import { Starfield } from '../components/Starfield';
 import { Navbar } from '../components/Navbar';
+import { HoverPreviewVideo } from '../components/HoverPreviewVideo';
 
 export default function HeroJourneyCase() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-``
+
   return (
     <div className="relative bg-[#050505] min-h-screen">
       {/* Starfield Background */}
@@ -105,6 +106,32 @@ export default function HeroJourneyCase() {
               alt="The Hero's Journey - Final Artwork" 
               className="w-full h-auto"
             />
+          </motion.div>
+
+          {/* Scene preview — hover to scrub, auto-cycles when idle */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="mb-20 space-y-4"
+          >
+            <div className="flex items-baseline gap-4">
+              <h2 className="text-2xl text-white" style={{ fontWeight: 300 }}>
+                Stay away From the Window
+              </h2>
+              <div className="flex-1 h-px bg-gradient-to-r from-[#FFD700]/30 to-transparent" />
+            </div>
+            <p className="text-gray-400 text-sm">
+              Hover across the frame to preview different moments — it cycles through the clip on its own when idle.
+            </p>
+            <div className="relative aspect-video overflow-hidden rounded-xl border border-[#1a1a1a]">
+              <HoverPreviewVideo
+                src="/videos/main-start-scene-giraffe.mp4"
+                poster={finalImage}
+                className="h-full w-full"
+              />
+            </div>
           </motion.div>
 
           {/* Tools Used */}

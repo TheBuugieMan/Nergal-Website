@@ -32,41 +32,52 @@ export default function Portfolio() {
     { label: 'Contact', action: () => scrollToSection('contact') },
   ];
 
-  const featuredHero = {
+  const featuredVideo = {
+    title: 'Stay away From the Window',
+    description:
+      'A cinematic loop from the opening scene — hover to wander through the frame, or let it drift on its own.',
+    image: herosJourneyImg,
+    video: '/videos/main-start-scene-giraffe.mp4',
+    tags: ['Cinematic', 'Scene Study', 'Video'],
+    featured: true,
+    portrait: true,
+    featuredLabel: 'FEATURED WORK',
+    interactive: false,
+  };
+
+  const herosJourneyProject = {
     title: "Hero's Journey",
     description:
       'An immersive narrative experience mapping personal transformation through symbolic storytelling and AI-driven insights.',
     image: herosJourneyImg,
     tags: ['Storytelling', 'Creative Tech', 'Web'],
     link: '/projects/heros-journey',
-    featured: true,
-    portrait: true,
-    featuredLabel: 'FEATURED WORK',
   };
 
-  const sideProjects = [
-    {
-      title: 'Higher Connections',
-      description:
-        'A platform exploring consciousness, spirituality, and human connection through interactive multimedia experiences.',
-      image: higherConnectionsImg,
-      tags: ['Interactive', 'Multimedia', 'AI'],
-      link: '/projects/higher-connections',
-    },
-    {
-      title: 'Graffiti Magazine',
-      description:
-        'A digital publication celebrating urban art, street culture, and the intersection of technology and creative expression.',
-      image: graffitiMagImg,
-      tags: ['Editorial', 'Design', 'Culture'],
-    },
-  ];
+  const higherConnectionsProject = {
+    title: 'Higher Connections',
+    description:
+      'A platform exploring consciousness, spirituality, and human connection through interactive multimedia experiences.',
+    image: higherConnectionsImg,
+    tags: ['Interactive', 'Multimedia', 'AI'],
+    link: '/projects/higher-connections',
+  };
+
+  const graffitiProject = {
+    title: 'Graffiti Magazine',
+    description:
+      'A digital publication celebrating urban art, street culture, and the intersection of technology and creative expression.',
+    image: graffitiMagImg,
+    tags: ['Editorial', 'Design', 'Culture'],
+  };
 
   const featuredCampaign = {
     title: 'Google Gemini Campaign',
     description:
       'Campaign concept exploring AI consciousness and human potential, visualizing where thoughts become reality.',
     image: geminiCampaignImg,
+    video: '/videos/gemini-project-v2.mp4',
+    videoFit: 'contain' as const,
     tags: ['AI/ML', 'Campaign', 'Concept'],
     link: '/projects/gemini',
     featured: true,
@@ -245,26 +256,36 @@ export default function Portfolio() {
                     transition={{ delay: 1.5 }}
                     className="text-gray-400 font-mono text-sm mt-2"
                   >
-                    <p>{'>'} Found 4 projects. Displaying...</p>
+                    <p>{'>'} Found 5 projects. Displaying...</p>
                   </motion.div>
                 </div>
               </TerminalWindow>
             </div>
           </motion.div>
 
-          {/* Bento Grid: portrait hero on the left, two stacked cards on the right */}
-          <div className="grid grid-cols-1 md:grid-cols-2 md:auto-rows-fr gap-8">
-            <div className="md:row-span-2 md:h-full">
-              <ProjectCard {...featuredHero} index={0} />
+          {/* Video left, Hero's Journey right — matched height */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:items-stretch">
+            <div className="min-h-[560px] sm:min-h-[640px] md:min-h-[720px]">
+              <ProjectCard {...featuredVideo} index={0} />
             </div>
-            {sideProjects.map((project, index) => (
-              <ProjectCard key={project.title} {...project} index={index + 1} />
-            ))}
+            <div className="min-h-[560px] sm:min-h-[640px] md:min-h-[720px]">
+              <ProjectCard
+                {...herosJourneyProject}
+                index={1}
+                fillHeight
+                wrapperClassName="h-full"
+              />
+            </div>
+          </div>
+
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <ProjectCard {...higherConnectionsProject} index={2} />
+            <ProjectCard {...graffitiProject} index={3} />
           </div>
 
           {/* Full-width featured campaign below */}
           <div className="mt-8">
-            <ProjectCard {...featuredCampaign} index={3} />
+            <ProjectCard {...featuredCampaign} index={4} />
           </div>
         </div>
       </section>

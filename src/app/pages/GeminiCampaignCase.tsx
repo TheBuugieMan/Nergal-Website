@@ -13,8 +13,11 @@ import { Link } from 'react-router';
 import { useEffect } from 'react';
 import campaignImage from '../../assets/954bda79f10cab5944413991bb12cdf4ce667b0b.png';
 import mascotImage from '../../assets/19528fcd7fc876e73b17607bb4bfec4b047f8104.png';
+import posterCollageImage from '../../assets/gemini-poster-collage.png';
+import youngOnesImage from '../../assets/gemini-young-ones.png';
 import { Starfield } from '../components/Starfield';
 import { Navbar } from '../components/Navbar';
+import { HoverPreviewVideo } from '../components/HoverPreviewVideo';
 
 const GEMINI_BLUE = '#078EFA';
 const GEMINI_PURPLE = '#AD89EB';
@@ -136,14 +139,25 @@ export default function GeminiCampaignCase() {
             </div>
           </motion.div>
 
-          {/* Hero Image */}
+          {/* Hero Video */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.3 }}
-            className="relative mb-20 overflow-hidden rounded-xl border border-[#078EFA]/30 shadow-2xl shadow-[#078EFA]/10"
+            className="relative mb-20 overflow-hidden rounded-xl border border-[#078EFA]/30 bg-[#050505] shadow-2xl shadow-[#078EFA]/10"
           >
-            <img src={campaignImage} alt="Gemini Campaign — Key Visual" className="h-auto w-full" />
+            <div className="relative mx-auto flex min-h-[420px] w-full items-center justify-center md:min-h-[560px] lg:min-h-[640px]">
+              <HoverPreviewVideo
+                src="/videos/gemini-project-v2.mp4"
+                poster={campaignImage}
+                className="h-full w-full max-h-[720px]"
+                objectFit="contain"
+              />
+            </div>
+
+            <p className="border-t border-[#078EFA]/15 px-6 py-3 text-center font-mono text-xs text-gray-500">
+              Hover to scrub · cycles on its own when idle
+            </p>
 
             {/* Animated gradient glow border */}
             <motion.div
@@ -170,6 +184,57 @@ export default function GeminiCampaignCase() {
               transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
             />
           </motion.div>
+
+          {/* Campaign Visuals */}
+          <motion.section
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="mb-20"
+          >
+            <h2 className="mb-8 font-mono text-3xl text-white" style={{ fontWeight: 300 }}>
+              <span className="text-[#078EFA]">$</span> campaign.visuals
+            </h2>
+
+            <div className="grid gap-8 md:grid-cols-2">
+              <div className="space-y-4">
+                <div className="flex items-baseline gap-4">
+                  <h3 className="font-mono text-lg text-[#AD89EB]">Poster Collage</h3>
+                  <div className="h-px flex-1 bg-gradient-to-r from-[#078EFA]/30 to-transparent" />
+                </div>
+                <p className="text-sm leading-relaxed text-gray-400">
+                  Where thoughts become reality — a surreal park scene mixing illustration, photography,
+                  and the Gemini companion into one campaign poster.
+                </p>
+                <div className="overflow-hidden rounded-xl border border-[#078EFA]/25 bg-[#050505]">
+                  <img
+                    src={posterCollageImage}
+                    alt="Gemini campaign poster collage — Where thoughts become reality"
+                    className="mx-auto h-auto max-h-[720px] w-full object-contain"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div className="flex items-baseline gap-4">
+                  <h3 className="font-mono text-lg text-[#078EFA]">Young Ones</h3>
+                  <div className="h-px flex-1 bg-gradient-to-r from-[#AD89EB]/30 to-transparent" />
+                </div>
+                <p className="text-sm leading-relaxed text-gray-400">
+                  Classroom spot framing Gemini as a creative mentor — the companion guides young minds
+                  while staying warm, approachable, and unmistakably Google.
+                </p>
+                <div className="overflow-hidden rounded-xl border border-[#AD89EB]/25 bg-[#050505]">
+                  <img
+                    src={youngOnesImage}
+                    alt="Gemini Young Ones campaign — classroom creative mentor scene"
+                    className="mx-auto h-auto max-h-[720px] w-full object-contain"
+                  />
+                </div>
+              </div>
+            </div>
+          </motion.section>
 
           {/* Tools Used */}
           <motion.section
