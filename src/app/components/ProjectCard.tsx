@@ -1,7 +1,15 @@
 import { motion } from 'motion/react';
 import { ArrowUpRight, Sparkles } from 'lucide-react';
 import { Link } from 'react-router';
+import type { ReactNode } from 'react';
 import { HoverPreviewVideo } from './HoverPreviewVideo';
+
+const projectTitleClasses =
+  'font-light leading-[1.05] tracking-tight text-white transition-colors duration-500 group-hover:text-[#FFD700]';
+const featuredTitleClasses = `text-3xl ${projectTitleClasses} md:text-4xl lg:text-5xl`;
+const cardTitleClasses = `text-2xl ${projectTitleClasses} md:text-3xl`;
+const largeCardTitleClasses = `text-3xl ${projectTitleClasses} md:text-4xl`;
+const projectDescriptionClasses = 'leading-relaxed text-gray-300 text-sm md:text-base';
 
 interface ProjectCardProps {
   title: string;
@@ -18,6 +26,8 @@ interface ProjectCardProps {
   interactive?: boolean;
   fillHeight?: boolean;
   wrapperClassName?: string;
+  featuredVisual?: ReactNode;
+  subtitle?: string;
 }
 
 export function ProjectCard({
@@ -35,20 +45,29 @@ export function ProjectCard({
   interactive = true,
   fillHeight = false,
   wrapperClassName = '',
+  featuredVisual,
+  subtitle,
 }: ProjectCardProps) {
   if (featured) {
     const isClickable = interactive && Boolean(link);
-    const useSplitVideoLayout = Boolean(video && videoFit === 'contain' && !portrait);
+    const useSplitVideoLayout = Boolean(
+      featuredVisual || (video && videoFit === 'contain' && !portrait),
+    );
     const imageSizingClasses = portrait
       ? 'relative h-[560px] sm:h-[640px] md:h-full md:min-h-[720px] overflow-hidden'
       : 'relative h-[360px] md:h-[520px] overflow-hidden';
 
     const titleBlock = (
       <>
-        <h3 className="text-3xl font-light leading-[1.05] tracking-tight text-white transition-colors duration-500 group-hover:text-[#FFD700] md:text-4xl lg:text-5xl">
+        <h3 className={featuredTitleClasses}>
           {title}
         </h3>
-        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-gray-300 md:text-base">
+        {subtitle && (
+          <p className="mt-2 text-base text-emerald-300 md:text-lg" style={{ fontWeight: 300 }}>
+            {subtitle}
+          </p>
+        )}
+        <p className={`${subtitle ? 'mt-3' : 'mt-3'} max-w-2xl ${projectDescriptionClasses}`}>
           {description}
         </p>
         <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
@@ -109,12 +128,18 @@ export function ProjectCard({
       <>
         <div className="grid min-h-[520px] grid-cols-1 md:grid-cols-[minmax(260px,36%)_1fr]">
           <div className="relative min-h-[420px] overflow-hidden bg-[#050505] md:min-h-[520px]">
-            <HoverPreviewVideo
-              src={video!}
-              poster={image}
-              className="absolute inset-0 h-full w-full"
-              objectFit="contain"
-            />
+            {featuredVisual ? (
+              <div className="absolute inset-0 flex items-center justify-center p-4 sm:p-6">
+                {featuredVisual}
+              </div>
+            ) : (
+              <HoverPreviewVideo
+                src={video!}
+                poster={image}
+                className="absolute inset-0 h-full w-full"
+                objectFit="contain"
+              />
+            )}
             {featuredBadge}
           </div>
 
@@ -243,19 +268,19 @@ export function ProjectCard({
 
       {/* Content */}
       <div className="relative p-6 space-y-4">
-        <div className="flex items-start justify-between">
-          <h3 className="text-2xl text-white group-hover:text-[#FFD700] transition-colors duration-300">
+        <div className="flex items-start justify-between gap-4">
+          <h3 className={fillHeight ? largeCardTitleClasses : cardTitleClasses}>
             {title}
           </h3>
           <motion.div
             whileHover={{ scale: 1.2, rotate: 45 }}
-            className="text-[#8B0000] group-hover:text-[#FFD700] transition-colors duration-300"
+            className="shrink-0 text-[#8B0000] group-hover:text-[#FFD700] transition-colors duration-500"
           >
             <ArrowUpRight className="w-6 h-6" />
           </motion.div>
         </div>
 
-        <p className="text-gray-400 leading-relaxed">
+        <p className={projectDescriptionClasses}>
           {description}
         </p>
 
@@ -264,7 +289,7 @@ export function ProjectCard({
           {tags.map((tag, i) => (
             <span
               key={i}
-              className="px-3 py-1 text-xs text-[#FFD700] bg-[#FFD700]/10 rounded-full border border-[#FFD700]/20"
+              className="rounded-full border border-[#FFD700]/30 bg-[#FFD700]/10 px-3 py-1 font-mono text-xs text-[#FFD700]"
             >
               {tag}
             </span>

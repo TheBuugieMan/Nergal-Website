@@ -251,20 +251,24 @@ export default function GeminiCampaignCase() {
               <div className="grid gap-6 md:grid-cols-2">
                 {[
                   {
-                    label: 'Figma',
-                    note: 'Identity, layout, and component system.',
-                  },
-                  {
                     label: 'Adobe After Effects',
-                    note: 'Motion identity and animated key visuals.',
+                    note: 'Motion identity, animated key visuals, and campaign film assembly.',
                   },
                   {
                     label: 'Adobe Photoshop',
-                    note: 'Photographic compositing and mascot finishing.',
+                    note: 'Photographic compositing, poster collage, and mascot finishing.',
                   },
                   {
-                    label: 'Adobe Illustrator',
-                    note: 'Geometric construction of the gradient marks.',
+                    label: 'Adobe Firefly',
+                    note: 'Generative assets and visual exploration for campaign concepts.',
+                  },
+                  {
+                    label: 'Campaign',
+                    note: 'Self-initiated brand concept reframing Gemini as a creative companion.',
+                  },
+                  {
+                    label: 'Concept',
+                    note: 'Visual system, mascot direction, and multimodal identity development.',
                   },
                 ].map((tool) => (
                   <div key={tool.label} className="flex items-start gap-3">

@@ -7,6 +7,7 @@ import UnityProtocolStory from "./pages/UnityProtocolStory";
 import HigherConnectionsCase from "./pages/HigherConnectionsCase";
 import HeroJourneyCase from "./pages/HeroJourneyCase";
 import GeminiCampaignCase from "./pages/GeminiCampaignCase";
+import SupaWorldCase from "./pages/SupaWorldCase";
 
 export const router = createBrowserRouter(
   [
@@ -21,6 +22,7 @@ export const router = createBrowserRouter(
         { path: "projects/higher-connections", Component: HigherConnectionsCase },
         { path: "projects/heros-journey", Component: HeroJourneyCase },
         { path: "projects/gemini", Component: GeminiCampaignCase },
+        { path: "projects/supa-world", Component: SupaWorldCase },
       ],
     },
   ],

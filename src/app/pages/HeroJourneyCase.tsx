@@ -125,6 +125,16 @@ export default function HeroJourneyCase() {
             <p className="text-gray-400 text-sm">
               Hover across the frame to preview different moments — it cycles through the clip on its own when idle.
             </p>
+            <div className="flex flex-wrap gap-2">
+              {['Google Flow', 'Adobe Premiere', 'Nano Banana'].map((tool) => (
+                <span
+                  key={tool}
+                  className="rounded-full border border-[#FFD700]/30 bg-[#FFD700]/10 px-3 py-1 font-mono text-xs text-[#FFD700]"
+                >
+                  {tool}
+                </span>
+              ))}
+            </div>
             <div className="relative aspect-video overflow-hidden rounded-xl border border-[#1a1a1a]">
               <HoverPreviewVideo
                 src="/videos/main-start-scene-giraffe.mp4"
@@ -146,17 +156,34 @@ export default function HeroJourneyCase() {
               Tools Used
             </h2>
             <div className="bg-gradient-to-br from-[#0a0a0a]/80 to-[#050505]/90 rounded-lg border border-[#1a1a1a] p-8">
-              <h3 className="text-xl text-[#FFD700] mb-4">Adobe Photoshop</h3>
-              <ul className="space-y-2 text-gray-300">
-                <li className="flex items-start gap-2">
-                  <span className="text-[#8B0000] mt-1">•</span>
-                  <span>Custom brushes, layer blending modes</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-[#8B0000] mt-1">•</span>
-                  <span>Hand-drawn textures and symbolic compositing</span>
-                </li>
-              </ul>
+              <div className="grid gap-6 md:grid-cols-2">
+                {[
+                  {
+                    label: 'Adobe Photoshop',
+                    note: 'Custom brushes, layer blending modes, hand-drawn textures, and symbolic compositing.',
+                  },
+                  {
+                    label: 'Storytelling',
+                    note: 'Mythic narrative structure mapped through visual sequence and personal symbolism.',
+                  },
+                  {
+                    label: 'Symbolism',
+                    note: 'Archetypes — bull, bird, snake — woven into a layered composition of identity and transformation.',
+                  },
+                  {
+                    label: 'Creative',
+                    note: 'Experimental blending of hand-drawn texture, photography, and surreal world-building.',
+                  },
+                ].map((tool) => (
+                  <div key={tool.label} className="flex items-start gap-2">
+                    <span className="text-[#8B0000] mt-1">•</span>
+                    <div>
+                      <p className="text-[#FFD700]">{tool.label}</p>
+                      <p className="mt-1 text-sm text-gray-400">{tool.note}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </motion.section>
 

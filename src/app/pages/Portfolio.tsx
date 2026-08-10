@@ -11,6 +11,7 @@ import geminiCampaignImg from '../../assets/954bda79f10cab5944413991bb12cdf4ce66
 import { Starfield } from '../components/Starfield';
 import { Navbar } from '../components/Navbar';
 import { ProjectCard } from '../components/ProjectCard';
+import { SupaWorldArchitectureDiagram } from '../components/SupaWorldArchitectureDiagram';
 import { MatrixRain } from '../components/MatrixRain';
 import { TerminalText } from '../components/TerminalText';
 import { TerminalWindow } from '../components/TerminalWindow';
@@ -32,13 +33,26 @@ export default function Portfolio() {
     { label: 'Contact', action: () => scrollToSection('contact') },
   ];
 
+  const supaWorldProject = {
+    title: 'SUPA WORLD',
+    subtitle: 'Persistent Autonomous Civilization Simulation',
+    description:
+      'Autonomous villagers form settlements, gather resources, construct structures, interact with wildlife, and generate persistent history through utility-driven decision systems — with a modular architecture for external intelligence like Cybo.',
+    image: higherConnectionsImg,
+    tags: ['Python', 'Utility AI', 'Simulation', 'Software Engineering'],
+    link: '/projects/supa-world',
+    featured: true,
+    featuredLabel: 'SOFTWARE ENGINEERING — FEATURED',
+    featuredVisual: <SupaWorldArchitectureDiagram compact className="w-full border-0 bg-transparent p-0" />,
+  };
+
   const featuredVideo = {
     title: 'Stay away From the Window',
     description:
       'A cinematic loop from the opening scene — hover to wander through the frame, or let it drift on its own.',
     image: herosJourneyImg,
     video: '/videos/main-start-scene-giraffe.mp4',
-    tags: ['Cinematic', 'Scene Study', 'Video'],
+    tags: ['Google Flow', 'Adobe Premiere', 'Nano Banana'],
     featured: true,
     portrait: true,
     featuredLabel: 'FEATURED WORK',
@@ -50,7 +64,7 @@ export default function Portfolio() {
     description:
       'An immersive narrative experience mapping personal transformation through symbolic storytelling and AI-driven insights.',
     image: herosJourneyImg,
-    tags: ['Storytelling', 'Creative Tech', 'Web'],
+    tags: ['Photoshop', 'Storytelling', 'Symbolism', 'Creative'],
     link: '/projects/heros-journey',
   };
 
@@ -59,7 +73,7 @@ export default function Portfolio() {
     description:
       'A platform exploring consciousness, spirituality, and human connection through interactive multimedia experiences.',
     image: higherConnectionsImg,
-    tags: ['Interactive', 'Multimedia', 'AI'],
+    tags: ['Interactive', 'Multimedia', 'Photoshop'],
     link: '/projects/higher-connections',
   };
 
@@ -78,7 +92,7 @@ export default function Portfolio() {
     image: geminiCampaignImg,
     video: '/videos/gemini-project-v2.mp4',
     videoFit: 'contain' as const,
-    tags: ['AI/ML', 'Campaign', 'Concept'],
+    tags: ['After Effects', 'Photoshop', 'Adobe Firefly', 'Campaign', 'Concept'],
     link: '/projects/gemini',
     featured: true,
     featuredLabel: 'CAMPAIGN \u2014 FEATURED WORK',
@@ -256,22 +270,27 @@ export default function Portfolio() {
                     transition={{ delay: 1.5 }}
                     className="text-gray-400 font-mono text-sm mt-2"
                   >
-                    <p>{'>'} Found 5 projects. Displaying...</p>
+                    <p>{'>'} Found 6 projects. Displaying...</p>
                   </motion.div>
                 </div>
               </TerminalWindow>
             </div>
           </motion.div>
 
+          {/* Supa World — prominent SWE featured project */}
+          <div className="mb-8">
+            <ProjectCard {...supaWorldProject} index={0} />
+          </div>
+
           {/* Video left, Hero's Journey right — matched height */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:items-stretch">
             <div className="min-h-[560px] sm:min-h-[640px] md:min-h-[720px]">
-              <ProjectCard {...featuredVideo} index={0} />
+              <ProjectCard {...featuredVideo} index={1} />
             </div>
             <div className="min-h-[560px] sm:min-h-[640px] md:min-h-[720px]">
               <ProjectCard
                 {...herosJourneyProject}
-                index={1}
+                index={2}
                 fillHeight
                 wrapperClassName="h-full"
               />
@@ -279,13 +298,13 @@ export default function Portfolio() {
           </div>
 
           <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-            <ProjectCard {...higherConnectionsProject} index={2} />
-            <ProjectCard {...graffitiProject} index={3} />
+            <ProjectCard {...higherConnectionsProject} index={3} />
+            <ProjectCard {...graffitiProject} index={4} />
           </div>
 
           {/* Full-width featured campaign below */}
           <div className="mt-8">
-            <ProjectCard {...featuredCampaign} index={4} />
+            <ProjectCard {...featuredCampaign} index={5} />
           </div>
         </div>
       </section>
