@@ -6,6 +6,7 @@ import { Starfield } from '../components/Starfield';
 import { Navbar } from '../components/Navbar';
 import { TerminalWindow } from '../components/TerminalWindow';
 import { SupaWorldArchitectureDiagram } from '../components/SupaWorldArchitectureDiagram';
+import { HoverPreviewVideo } from '../components/HoverPreviewVideo';
 
 const EMERALD = '#34d399';
 
@@ -68,13 +69,48 @@ export default function SupaWorldCase() {
               </p>
             </div>
 
+            <div className="relative overflow-hidden rounded-xl border border-emerald-400/30 bg-[#050505] shadow-2xl shadow-emerald-400/10">
+              <div className="relative min-h-[320px] w-full md:min-h-[420px]">
+                <HoverPreviewVideo
+                  src="/videos/supa-world-preview.mp4"
+                  className="h-full w-full min-h-[320px] md:min-h-[420px]"
+                  objectFit="cover"
+                  previewMode="loop"
+                  loopEndFraction={0.4}
+                />
+              </div>
+            </div>
+
             <p className="max-w-3xl text-lg leading-relaxed text-gray-300">
               A Python-based simulation environment in which autonomous villagers form settlements,
               gather resources, construct structures, interact with wildlife, and generate persistent
-              history through utility-driven decision systems. Designed with a modular architecture that
-              allows external intelligence systems such as Cybo to observe and interact with the simulated
-              world.
+              history through utility-driven decision systems. But at its core, Supa World is also a
+              creative way to teach AI — I use this environment to train my custom AI, Cybo, in
+              decision-making: observing world state, evaluating choices, and learning how actions
+              ripple through a persistent civilization.
             </p>
+
+            <div className="rounded-lg border border-emerald-400/30 bg-emerald-400/5 p-6">
+              <p className="font-mono text-xs uppercase tracking-[0.18em] text-emerald-400">
+                // primary purpose
+              </p>
+              <p className="mt-3 text-lg leading-relaxed text-gray-200">
+                Simulation first — training ground second, and equally important. Supa World gives AI
+                systems a structured world where decision-making can be practiced, observed, corrected,
+                and measured over time.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              {['Python', 'Sim', 'Software Engineering', 'Creative AI Teaching'].map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 font-mono text-xs text-emerald-300"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
 
             <div className="flex flex-wrap gap-8 border-y border-[#1a1a1a] py-6">
               <div className="flex items-center gap-3">
@@ -94,8 +130,8 @@ export default function SupaWorldCase() {
               <div className="flex items-center gap-3">
                 <Clock className="h-5 w-5 text-emerald-400" />
                 <div>
-                  <p className="text-sm text-gray-500">Status</p>
-                  <p className="text-lg text-white">Active Development</p>
+                  <p className="text-sm text-gray-500">AI Training</p>
+                  <p className="text-lg text-white">Cybo Decision-Making</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -120,7 +156,9 @@ export default function SupaWorldCase() {
 ──────────────────────────────
 TYPE       Autonomous Simulation
 LANGUAGE   Python
+PURPOSE    Creative AI Teaching + Training
 AI         Utility AI + LLM Integration
+TRAINING   Decision-making for custom AI (Cybo)
 SYSTEMS    Agents / Resources / Building
            Persistence / History / Wildlife
 STATUS     Active Development
@@ -147,6 +185,31 @@ STATUS     Active Development
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
+            className="mb-20"
+          >
+            <h2 className="mb-6 font-mono text-3xl text-white" style={{ fontWeight: 300 }}>
+              <span className="text-[#FFD700]">$</span> ai.training
+            </h2>
+            <div className="space-y-4 rounded-lg border border-[#1a1a1a] bg-gradient-to-br from-[#0a0a0a]/85 to-[#050505]/90 p-8">
+              <p className="text-lg leading-relaxed text-gray-300">
+                I built Supa World not only as a civilization simulation, but as a teaching environment
+                for my custom AI. Cybo reads world state through the external interface, proposes actions,
+                and learns from outcomes — gathering resources, defending settlements, responding to
+                wildlife, and navigating long-term consequences.
+              </p>
+              <p className="text-lg leading-relaxed text-gray-300">
+                That makes the project a creative training lab for AI decision-making: a persistent world
+                where choices matter, history accumulates, and intelligence can be sharpened through
+                structured practice instead of abstract prompts alone.
+              </p>
+            </div>
+          </motion.section>
+
+          <motion.section
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
             className="mb-20 space-y-6"
           >
             <h2 className="font-mono text-3xl text-white" style={{ fontWeight: 300 }}>
@@ -164,7 +227,7 @@ STATUS     Active Development
                 },
                 {
                   title: 'External Intelligence Bridge',
-                  copy: 'HTTP API and JSON observation/command interfaces let Cybo and LLM systems observe and act on the world without importing simulation internals.',
+                  copy: 'HTTP API and JSON observation/command interfaces let Cybo observe, act, and learn inside the simulation — the same bridge I use to train my custom AI in real decision-making loops.',
                 },
                 {
                   title: 'Persistent History',
@@ -200,7 +263,7 @@ STATUS     Active Development
                   'Wildlife ecology and predator chains',
                   'Faction warfare, bandit camps, and conquest',
                   '21-node tech tree across civilization ages',
-                  'React isometric dashboard + live world API',
+                  'Observation/command loop for training Cybo in live decisions',
                 ].map((item) => (
                   <li key={item} className="flex gap-2">
                     <span className="text-emerald-400">▹</span>
@@ -229,8 +292,8 @@ STATUS     Active Development
                 The NergalLabs Thread
               </h2>
               <p className="relative max-w-3xl text-lg leading-relaxed text-gray-300">
-                <span className="text-emerald-300">Cybo</span> = intelligence ·{' '}
-                <span className="text-[#FFD700]">Supa World</span> = simulated world ·{' '}
+                <span className="text-emerald-300">Cybo</span> = intelligence trained through Supa World ·{' '}
+                <span className="text-[#FFD700]">Supa World</span> = simulated world + AI teaching environment ·{' '}
                 <span className="text-[#078EFA]">Where Thoughts Become</span> = interactive experience.
                 Together they explain what NergalLabs is building: intelligent systems, worlds, and experiences.
               </p>

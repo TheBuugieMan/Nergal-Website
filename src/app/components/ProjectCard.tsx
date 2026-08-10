@@ -23,6 +23,8 @@ interface ProjectCardProps {
   portrait?: boolean;
   video?: string;
   videoFit?: 'cover' | 'contain';
+  videoPreviewMode?: 'segments' | 'loop';
+  loopEndFraction?: number;
   interactive?: boolean;
   fillHeight?: boolean;
   wrapperClassName?: string;
@@ -42,6 +44,8 @@ export function ProjectCard({
   portrait,
   video,
   videoFit = 'cover',
+  videoPreviewMode = 'segments',
+  loopEndFraction = 0.45,
   interactive = true,
   fillHeight = false,
   wrapperClassName = '',
@@ -50,9 +54,7 @@ export function ProjectCard({
 }: ProjectCardProps) {
   if (featured) {
     const isClickable = interactive && Boolean(link);
-    const useSplitVideoLayout = Boolean(
-      featuredVisual || (video && videoFit === 'contain' && !portrait),
-    );
+    const useSplitVideoLayout = Boolean(featuredVisual || (video && !portrait));
     const imageSizingClasses = portrait
       ? 'relative h-[560px] sm:h-[640px] md:h-full md:min-h-[720px] overflow-hidden'
       : 'relative h-[360px] md:h-[520px] overflow-hidden';
@@ -137,7 +139,9 @@ export function ProjectCard({
                 src={video!}
                 poster={image}
                 className="absolute inset-0 h-full w-full"
-                objectFit="contain"
+                objectFit={videoFit}
+                previewMode={videoPreviewMode}
+                loopEndFraction={loopEndFraction}
               />
             )}
             {featuredBadge}
@@ -165,7 +169,7 @@ export function ProjectCard({
               whileHover={{ scale: 1.08 }}
               transition={{ duration: 1.2, ease: 'easeOut' }}
             >
-              <HoverPreviewVideo src={video} poster={image} className="h-full w-full" objectFit={videoFit} />
+              <HoverPreviewVideo src={video} poster={image} className="h-full w-full" objectFit={videoFit} previewMode={videoPreviewMode} loopEndFraction={loopEndFraction} />
             </motion.div>
           ) : (
             <motion.img

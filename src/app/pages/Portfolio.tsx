@@ -11,7 +11,6 @@ import geminiCampaignImg from '../../assets/954bda79f10cab5944413991bb12cdf4ce66
 import { Starfield } from '../components/Starfield';
 import { Navbar } from '../components/Navbar';
 import { ProjectCard } from '../components/ProjectCard';
-import { SupaWorldArchitectureDiagram } from '../components/SupaWorldArchitectureDiagram';
 import { MatrixRain } from '../components/MatrixRain';
 import { TerminalText } from '../components/TerminalText';
 import { TerminalWindow } from '../components/TerminalWindow';
@@ -37,13 +36,16 @@ export default function Portfolio() {
     title: 'SUPA WORLD',
     subtitle: 'Persistent Autonomous Civilization Simulation',
     description:
-      'Autonomous villagers form settlements, gather resources, construct structures, interact with wildlife, and generate persistent history through utility-driven decision systems — with a modular architecture for external intelligence like Cybo.',
+      'At its core, this is also a creative way to teach AI — a Python simulation I use to train my custom AI, Cybo, in decision-making inside a living world of autonomous villagers, resources, wildlife, and persistent history.',
     image: higherConnectionsImg,
-    tags: ['Python', 'Utility AI', 'Simulation', 'Software Engineering'],
+    video: '/videos/supa-world-preview.mp4',
+    videoFit: 'cover' as const,
+    videoPreviewMode: 'loop' as const,
+    loopEndFraction: 0.4,
+    tags: ['Python', 'Sim', 'Software Engineering', 'Creative AI Teaching'],
     link: '/projects/supa-world',
     featured: true,
     featuredLabel: 'SOFTWARE ENGINEERING — FEATURED',
-    featuredVisual: <SupaWorldArchitectureDiagram compact className="w-full border-0 bg-transparent p-0" />,
   };
 
   const featuredVideo = {

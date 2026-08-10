@@ -5,6 +5,8 @@ interface HoverPreviewVideoProps {
   className?: string;
   poster?: string;
   objectFit?: 'cover' | 'contain';
+  previewMode?: 'segments' | 'loop';
+  loopEndFraction?: number;
 }
 
 const SEGMENT_FRACTIONS = [0.04, 0.18, 0.34, 0.52, 0.68, 0.84];
@@ -14,6 +16,8 @@ export function HoverPreviewVideo({
   className = '',
   poster,
   objectFit = 'cover',
+  previewMode = 'segments',
+  loopEndFraction = 0.45,
 }: HoverPreviewVideoProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -39,7 +43,11 @@ export function HoverPreviewVideo({
     };
 
     const handleLoadedMetadata = () => {
-      seekToFraction(SEGMENT_FRACTIONS[0]);
+      if (previewMode === 'loop') {
+        video.currentTime = 0;
+      } else {
+        seekToFraction(SEGMENT_FRACTIONS[0]);
+      }
       void playClip();
     };
 
@@ -49,10 +57,10 @@ export function HoverPreviewVideo({
     return () => {
       video.removeEventListener('loadedmetadata', handleLoadedMetadata);
     };
-  }, [seekToFraction, src]);
+  }, [previewMode, seekToFraction, src]);
 
   useEffect(() => {
-    if (isHovering) return;
+    if (previewMode !== 'segments' || isHovering) return;
 
     const intervalId = window.setInterval(() => {
       segmentIndexRef.current = (segmentIndexRef.current + 1) % SEGMENT_FRACTIONS.length;
@@ -60,9 +68,28 @@ export function HoverPreviewVideo({
     }, 2800);
 
     return () => window.clearInterval(intervalId);
-  }, [isHovering, seekToFraction]);
+  }, [isHovering, previewMode, seekToFraction]);
+
+  useEffect(() => {
+    if (previewMode !== 'loop') return;
+
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleTimeUpdate = () => {
+      if (!Number.isFinite(video.duration) || video.duration <= 0) return;
+      const loopEnd = Math.max(video.duration * loopEndFraction, 0.5);
+      if (video.currentTime >= loopEnd) {
+        video.currentTime = 0;
+      }
+    };
+
+    video.addEventListener('timeupdate', handleTimeUpdate);
+    return () => video.removeEventListener('timeupdate', handleTimeUpdate);
+  }, [loopEndFraction, previewMode, src]);
 
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (previewMode === 'loop') return;
     const container = containerRef.current;
     const video = videoRef.current;
     if (!container || !video || !Number.isFinite(video.duration) || video.duration <= 0) return;
@@ -79,8 +106,12 @@ export function HoverPreviewVideo({
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => {
         setIsHovering(false);
-        segmentIndexRef.current = 0;
-        seekToFraction(SEGMENT_FRACTIONS[0]);
+        if (previewMode === 'segments') {
+          segmentIndexRef.current = 0;
+          seekToFraction(SEGMENT_FRACTIONS[0]);
+        } else {
+          seekToFraction(0);
+        }
       }}
       onMouseMove={handleMouseMove}
     >
