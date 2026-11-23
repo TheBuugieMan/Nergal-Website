@@ -40,7 +40,7 @@ export function SupaWorldArchitectureDiagram({
       className={`rounded-xl border border-[#FFD700]/20 bg-[#050505]/90 p-4 sm:p-6 font-mono ${className}`}
     >
       <div className={`flex flex-col items-center ${gap}`}>
-        {node('SUPA WORLD', 'emerald')}
+        {node('CYBO WRLD', 'emerald')}
         {line()}
         <div className={`flex w-full max-w-2xl items-center justify-center ${compact ? 'gap-2' : 'gap-4'}`}>
           {hLine()}

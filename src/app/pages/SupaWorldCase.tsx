@@ -54,7 +54,7 @@ export default function SupaWorldCase() {
             className="mb-16 space-y-8"
           >
             <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-emerald-400">
-              <span className="text-[#FFD700]">{'>'}</span> cat ./projects/supa-world.case
+              <span className="text-[#FFD700]">{'>'}</span> cat ./projects/cybo-wrld.case
             </div>
 
             <div className="space-y-3">
@@ -62,10 +62,10 @@ export default function SupaWorldCase() {
                 className="text-5xl leading-[1.02] tracking-tight text-white md:text-7xl"
                 style={{ fontWeight: 300 }}
               >
-                SUPA WORLD
+                CYBO WRLD
               </h1>
               <p className="text-xl text-emerald-300 md:text-2xl" style={{ fontWeight: 300 }}>
-                Persistent Autonomous Civilization Simulation
+                A World Built to Teach Intelligence
               </p>
             </div>
 
@@ -82,12 +82,10 @@ export default function SupaWorldCase() {
             </div>
 
             <p className="max-w-3xl text-lg leading-relaxed text-gray-300">
-              A Python-based simulation environment in which autonomous villagers form settlements,
-              gather resources, construct structures, interact with wildlife, and generate persistent
-              history through utility-driven decision systems. But at its core, Supa World is also a
-              creative way to teach AI — I use this environment to train my custom AI, Cybo, in
-              decision-making: observing world state, evaluating choices, and learning how actions
-              ripple through a persistent civilization.
+              What if artificial intelligence could learn through experience rather than instructions
+              alone? Cybo Wrld is an experimental game environment I created to explore that question.
+              It brings together game development, artificial intelligence, storytelling, and worldbuilding
+              in a living environment designed to become part of the learning process.
             </p>
 
             <div className="rounded-lg border border-emerald-400/30 bg-emerald-400/5 p-6">
@@ -95,9 +93,10 @@ export default function SupaWorldCase() {
                 // primary purpose
               </p>
               <p className="mt-3 text-lg leading-relaxed text-gray-200">
-                Simulation first — training ground second, and equally important. Supa World gives AI
-                systems a structured world where decision-making can be practiced, observed, corrected,
-                and measured over time.
+                At the center is Cybo, my developing AI assistant, whose intended role is to protect and
+                guide a village through unfamiliar encounters. The world provides a structured place to
+                explore decision-making, consequences, feedback, and adaptation without claiming that
+                every part of that long-term learning vision is already complete.
               </p>
             </div>
 
@@ -150,15 +149,15 @@ export default function SupaWorldCase() {
             transition={{ duration: 0.8, delay: 0.15 }}
             className="mb-16"
           >
-            <TerminalWindow title="~/supa-world/system.spec">
+            <TerminalWindow title="~/cybo-wrld/system.spec">
               <pre className="overflow-x-auto font-mono text-sm leading-relaxed text-gray-300">
-{`SUPA WORLD
+{`CYBO WRLD
 ──────────────────────────────
 TYPE       Autonomous Simulation
 LANGUAGE   Python
 PURPOSE    Creative AI Teaching + Training
 AI         Utility AI + LLM Integration
-TRAINING   Decision-making for custom AI (Cybo)
+EXPERIMENT Cybo decision-making + feedback loops
 SYSTEMS    Agents / Resources / Building
            Persistence / History / Wildlife
 STATUS     Active Development
@@ -192,15 +191,16 @@ STATUS     Active Development
             </h2>
             <div className="space-y-4 rounded-lg border border-[#1a1a1a] bg-gradient-to-br from-[#0a0a0a]/85 to-[#050505]/90 p-8">
               <p className="text-lg leading-relaxed text-gray-300">
-                I built Supa World not only as a civilization simulation, but as a teaching environment
-                for my custom AI. Cybo reads world state through the external interface, proposes actions,
-                and learns from outcomes — gathering resources, defending settlements, responding to
-                wildlife, and navigating long-term consequences.
+                Cybo is my ongoing exploration into an intelligent assistant that extends beyond ordinary
+                conversation. The broader project connects local AI, software architecture, automation,
+                voice, memory, and physical computing. Cybo Wrld is one experimental environment within
+                that vision, giving Cybo a world where choices can carry consequences.
               </p>
               <p className="text-lg leading-relaxed text-gray-300">
-                That makes the project a creative training lab for AI decision-making: a persistent world
-                where choices matter, history accumulates, and intelligence can be sharpened through
-                structured practice instead of abstract prompts alone.
+                The intended cycle is OBSERVE → DECIDE → ACT → EXPERIENCE → ADAPT: gather available
+                information, choose an action, let the world respond, and use feedback to inform future
+                behavior. This is the experiment's direction and design—not a claim that a fully autonomous
+                learning system is already complete.
               </p>
             </div>
           </motion.section>
@@ -227,7 +227,7 @@ STATUS     Active Development
                 },
                 {
                   title: 'External Intelligence Bridge',
-                  copy: 'HTTP API and JSON observation/command interfaces let Cybo observe, act, and learn inside the simulation — the same bridge I use to train my custom AI in real decision-making loops.',
+                  copy: 'The observation and command architecture is designed to connect Cybo with the simulation so environmental decisions, outcomes, and future feedback experiments can be explored safely.',
                 },
                 {
                   title: 'Persistent History',
@@ -263,7 +263,7 @@ STATUS     Active Development
                   'Wildlife ecology and predator chains',
                   'Faction warfare, bandit camps, and conquest',
                   '21-node tech tree across civilization ages',
-                  'Observation/command loop for training Cybo in live decisions',
+                  'Observation/command foundation for planned Cybo experiments',
                 ].map((item) => (
                   <li key={item} className="flex gap-2">
                     <span className="text-emerald-400">▹</span>
@@ -289,13 +289,13 @@ STATUS     Active Development
                 }}
               />
               <h2 className="relative mb-4 font-mono text-2xl text-white md:text-3xl" style={{ fontWeight: 300 }}>
-                The NergalLabs Thread
+                A World to Explore. A Village to Protect.
               </h2>
               <p className="relative max-w-3xl text-lg leading-relaxed text-gray-300">
-                <span className="text-emerald-300">Cybo</span> = intelligence trained through Supa World ·{' '}
-                <span className="text-[#FFD700]">Supa World</span> = simulated world + AI teaching environment ·{' '}
-                <span className="text-[#078EFA]">Where Thoughts Become</span> = interactive experience.
-                Together they explain what NergalLabs is building: intelligent systems, worlds, and experiences.
+                The village gives <span className="text-emerald-300">Cybo</span> more than a task: it gives
+                him a responsibility. Each unfamiliar encounter can test how an intelligent system might
+                evaluate risk and respond to uncertainty. A choice may succeed or fail, but either outcome
+                can become useful feedback within the project's intended experimental design.
               </p>
             </div>
           </motion.section>

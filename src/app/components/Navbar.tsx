@@ -58,6 +58,7 @@ export function Navbar() {
     { label: 'Projects', type: 'section', target: 'projects' },
     { label: 'About Me', type: 'section', target: 'about-me' },
     { label: 'Blog', type: 'route', target: '/blog' },
+    { label: 'Work With Me', type: 'section', target: 'work-with-me' },
     { label: 'Contact', type: 'section', target: 'contact' },
   ] as const;
 

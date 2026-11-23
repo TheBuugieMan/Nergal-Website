@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import { ArrowUpRight, Sparkles } from 'lucide-react';
 import { Link } from 'react-router';
 import type { ReactNode } from 'react';
@@ -30,6 +30,51 @@ interface ProjectCardProps {
   wrapperClassName?: string;
   featuredVisual?: ReactNode;
   subtitle?: string;
+  inProgress?: boolean;
+  onClick?: () => void;
+}
+
+function InProgressSignalOverlay() {
+  const reduceMotion = useReducedMotion();
+
+  return (
+    <div className="pointer-events-none absolute inset-0 z-[8] overflow-hidden" aria-hidden>
+      <div className="absolute inset-0 bg-black/20" />
+      <motion.div
+        className="absolute -inset-[15%] opacity-[0.22] transition-opacity duration-500 group-hover:opacity-[0.11]"
+        style={{
+          backgroundImage:
+            'repeating-radial-gradient(circle at 30% 40%, rgba(255,255,255,0.7) 0 0.6px, transparent 0.8px 3px)',
+          backgroundSize: '5px 5px',
+        }}
+        animate={reduceMotion ? undefined : { x: [0, 7, -4, 0], y: [0, -5, 3, 0] }}
+        transition={{ duration: 0.48, repeat: Infinity, ease: 'linear' }}
+      />
+      <div
+        className="absolute inset-0 opacity-[0.2] transition-opacity duration-500 group-hover:opacity-[0.1]"
+        style={{
+          backgroundImage:
+            'repeating-linear-gradient(to bottom, transparent 0, transparent 3px, rgba(255,215,0,0.16) 4px, transparent 5px)',
+        }}
+      />
+      {!reduceMotion &&
+        [18, 46, 73].map((top, index) => (
+          <motion.div
+            key={top}
+            className="absolute inset-x-[-8%] h-px bg-gradient-to-r from-transparent via-[#FFD700]/45 to-transparent"
+            style={{ top: `${top}%` }}
+            animate={{ x: ['-8%', '8%', '-8%'], opacity: [0.08, 0.5, 0.08] }}
+            transition={{ duration: 3.8 + index, repeat: Infinity, delay: index * 0.9, ease: 'easeInOut' }}
+          />
+        ))}
+      <div className="absolute inset-0 flex items-center justify-center p-4">
+        <div className="border border-[#FFD700]/55 bg-[#050505]/70 px-4 py-3 text-center shadow-lg shadow-black/40 backdrop-blur-[2px]">
+          <p className="font-mono text-xs font-semibold tracking-[0.24em] text-[#FFD700]">IN THE WORKS</p>
+          <p className="mt-1 font-mono text-[11px] italic tracking-wide text-gray-200">Signal still forming.</p>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export function ProjectCard({
@@ -51,6 +96,8 @@ export function ProjectCard({
   wrapperClassName = '',
   featuredVisual,
   subtitle,
+  inProgress = false,
+  onClick,
 }: ProjectCardProps) {
   if (featured) {
     const isClickable = interactive && Boolean(link);
@@ -144,6 +191,7 @@ export function ProjectCard({
                 loopEndFraction={loopEndFraction}
               />
             )}
+            {inProgress && <InProgressSignalOverlay />}
             {featuredBadge}
           </div>
 
@@ -187,6 +235,8 @@ export function ProjectCard({
           {/* Vignette gradients for legibility */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/55 to-transparent" />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#050505]/55 via-transparent to-[#050505]/30" />
+
+          {inProgress && <InProgressSignalOverlay />}
 
           {featuredBadge}
 
@@ -268,6 +318,7 @@ export function ProjectCard({
           transition={{ duration: 0.6 }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent" />
+        {inProgress && <InProgressSignalOverlay />}
       </div>
 
       {/* Content */}
@@ -308,6 +359,24 @@ export function ProjectCard({
 
   const cardClasses =
     `group relative bg-gradient-to-br from-[#0a0a0a] to-[#050505] rounded-lg overflow-hidden border border-[#1a1a1a] hover:border-[#8B0000] transition-all duration-500 block ${fillHeight ? 'flex h-full flex-col' : ''}`;
+
+  if (onClick) {
+    return (
+      <motion.button
+        type="button"
+        onClick={onClick}
+        aria-label={`Open a larger view of ${title}`}
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: index * 0.1 }}
+        whileHover={{ y: -8 }}
+        className={`${cardClasses} ${wrapperClassName} w-full text-left ${fillHeight ? 'h-full' : ''}`.trim()}
+      >
+        {CardContent}
+      </motion.button>
+    );
+  }
 
   if (link) {
     return (

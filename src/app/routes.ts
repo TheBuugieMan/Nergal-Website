@@ -22,6 +22,7 @@ export const router = createBrowserRouter(
         { path: "projects/higher-connections", Component: HigherConnectionsCase },
         { path: "projects/heros-journey", Component: HeroJourneyCase },
         { path: "projects/gemini", Component: GeminiCampaignCase },
+        { path: "projects/cybo-wrld", Component: SupaWorldCase },
         { path: "projects/supa-world", Component: SupaWorldCase },
       ],
     },

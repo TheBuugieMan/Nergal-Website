@@ -1,4 +1,5 @@
 import { motion, useScroll, useTransform } from 'motion/react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Github, Linkedin, Mail, ArrowRight, Globe, Palette, Brain, MessageSquare, Sparkles, Cpu, Zap, Users } from 'lucide-react';
 import aboutBgImage from '../../assets/9b494ddb59815b83287b223d51ae84e40591cd68.png';
@@ -14,9 +15,11 @@ import { ProjectCard } from '../components/ProjectCard';
 import { MatrixRain } from '../components/MatrixRain';
 import { TerminalText } from '../components/TerminalText';
 import { TerminalWindow } from '../components/TerminalWindow';
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from '../components/ui/dialog';
 
 export default function Portfolio() {
   const navigate = useNavigate();
+  const [graffitiOpen, setGraffitiOpen] = useState(false);
   const { scrollYProgress } = useScroll();
   const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
   const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.95]);
@@ -30,20 +33,21 @@ export default function Portfolio() {
     { label: 'Chronicles', action: () => navigate('/blog') },
     { label: 'About', action: () => scrollToSection('about-me') },
     { label: 'Contact', action: () => scrollToSection('contact') },
+    { label: 'Work With Me', action: () => scrollToSection('work-with-me') },
   ];
 
   const supaWorldProject = {
-    title: 'SUPA WORLD',
-    subtitle: 'Persistent Autonomous Civilization Simulation',
+    title: 'CYBO WRLD',
+    subtitle: 'A World Built to Teach Intelligence',
     description:
-      'At its core, this is also a creative way to teach AI — a Python simulation I use to train my custom AI, Cybo, in decision-making inside a living world of autonomous villagers, resources, wildlife, and persistent history.',
+      'An experimental game environment I created to explore how my developing AI assistant, Cybo, could learn through experience while protecting and guiding a village through an unpredictable world.',
     image: higherConnectionsImg,
     video: '/videos/supa-world-preview.mp4',
     videoFit: 'cover' as const,
     videoPreviewMode: 'loop' as const,
     loopEndFraction: 0.4,
     tags: ['Python', 'Sim', 'Software Engineering', 'Creative AI Teaching'],
-    link: '/projects/supa-world',
+    link: '/projects/cybo-wrld',
     featured: true,
     featuredLabel: 'SOFTWARE ENGINEERING — FEATURED',
   };
@@ -73,10 +77,11 @@ export default function Portfolio() {
   const higherConnectionsProject = {
     title: 'Higher Connections',
     description:
-      'A platform exploring consciousness, spirituality, and human connection through interactive multimedia experiences.',
+      'In the works — signal still forming. An evolving platform exploring consciousness, spirituality, and human connection through interactive multimedia experiences.',
     image: higherConnectionsImg,
     tags: ['Interactive', 'Multimedia', 'Photoshop'],
     link: '/projects/higher-connections',
+    inProgress: true,
   };
 
   const graffitiProject = {
@@ -90,7 +95,7 @@ export default function Portfolio() {
   const featuredCampaign = {
     title: 'Google Gemini Campaign',
     description:
-      'Campaign concept exploring AI consciousness and human potential, visualizing where thoughts become reality.',
+      'In the works — signal still forming. A campaign concept exploring AI consciousness and human potential, visualizing where thoughts become reality.',
     image: geminiCampaignImg,
     video: '/videos/gemini-project-v2.mp4',
     videoFit: 'contain' as const,
@@ -98,6 +103,7 @@ export default function Portfolio() {
     link: '/projects/gemini',
     featured: true,
     featuredLabel: 'CAMPAIGN \u2014 FEATURED WORK',
+    inProgress: true,
   };
 
   return (
@@ -189,7 +195,7 @@ export default function Portfolio() {
               Creative Systems • AI • Digital Experiences
             </p>
 
-            <div className="relative mt-5 md:mt-6 grid grid-cols-2 md:grid-cols-4 gap-2.5 md:gap-3">
+            <div className="relative mt-5 md:mt-6 grid grid-cols-2 md:grid-cols-5 gap-2.5 md:gap-3">
               {commandNodes.map((node) => (
                 <motion.button
                   key={node.label}
@@ -279,7 +285,7 @@ export default function Portfolio() {
             </div>
           </motion.div>
 
-          {/* Supa World — prominent SWE featured project */}
+          {/* Cybo Wrld — prominent SWE featured project */}
           <div className="mb-8">
             <ProjectCard {...supaWorldProject} index={0} />
           </div>
@@ -301,7 +307,7 @@ export default function Portfolio() {
 
           <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
             <ProjectCard {...higherConnectionsProject} index={3} />
-            <ProjectCard {...graffitiProject} index={4} />
+            <ProjectCard {...graffitiProject} index={4} onClick={() => setGraffitiOpen(true)} />
           </div>
 
           {/* Full-width featured campaign below */}
@@ -310,6 +316,22 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
+
+      <Dialog open={graffitiOpen} onOpenChange={setGraffitiOpen}>
+        <DialogContent className="max-h-[92vh] max-w-[calc(100%-1.5rem)] overflow-auto border-[#FFD700]/30 bg-[#050505] p-3 sm:max-w-6xl">
+          <div className="border border-[#FFD700]/15 bg-[#0a0a0a] p-3 sm:p-5">
+            <DialogTitle className="font-mono text-xl text-[#FFD700]">GRAFFITI MAGAZINE</DialogTitle>
+            <DialogDescription className="mt-2 text-sm text-gray-400">
+              Expanded artwork view. Select outside the frame or use the close control to return.
+            </DialogDescription>
+            <img
+              src={graffitiMagImg}
+              alt="Graffiti Magazine expanded artwork"
+              className="mt-4 max-h-[72vh] w-full object-contain"
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Work With Me Section */}
       <section id="work-with-me" className="relative z-10 py-20 px-6">
@@ -345,7 +367,7 @@ export default function Portfolio() {
                 
                 {/* Stronger intro line */}
                 <p className="text-lg md:text-xl text-gray-300 max-w-4xl font-light leading-relaxed font-mono">
-                  <span className="text-[#FFD700]">//</span> I design and engineer intelligent digital systems — blending structure, symbolism, and scalable technology.
+                  <span className="text-[#FFD700]">//</span> I build digital experiences that combine thoughtful design, reliable engineering, and intelligent technology — from custom websites and modern web applications to AI integrations and automated workflows.
                 </p>
                 
                 {/* ASCII Divider */}
@@ -360,42 +382,42 @@ export default function Portfolio() {
                   {
                     icon: Globe,
                     title: 'Custom Websites',
-                    description: 'React-powered responsive builds with modern design and performance optimization.'
+                    description: 'Modern, responsive websites built to represent your brand, engage visitors, and perform across devices.'
                   },
                   {
                     icon: Palette,
                     title: 'Graphic Design & Visual Identity',
-                    description: 'Cohesive brand systems and visual storytelling across digital platforms.'
+                    description: 'Distinctive visual identities and digital designs that communicate your ideas with clarity and personality.'
                   },
                   {
                     icon: Brain,
                     title: 'AI-Powered Web Applications',
-                    description: 'Intelligent systems that adapt, learn, and create meaningful user experiences.'
+                    description: 'Custom web applications enhanced with AI to create smarter, more useful, and interactive experiences.'
                   },
                   {
                     icon: MessageSquare,
                     title: 'AI Chatbots & Assistants',
-                    description: 'Conversational interfaces and intelligent automation (in development).'
+                    description: 'Conversational AI solutions that help answer questions, assist users, and streamline everyday interactions.'
                   },
                   {
                     icon: Sparkles,
                     title: 'Interactive Multimedia Experiences',
-                    description: 'Immersive digital environments blending technology and artistic expression.'
+                    description: 'Creative digital experiences that combine interactivity, visual storytelling, and technology.'
                   },
                   {
                     icon: Cpu,
                     title: 'Creative Technology Prototypes',
-                    description: 'Experimental systems exploring the intersection of hardware and software.'
+                    description: 'Experimental software and hardware concepts developed into functional demonstrations and prototypes.'
                   },
                   {
                     icon: Zap,
                     title: 'Automation & Intelligent Systems',
-                    description: 'Streamlined workflows and smart tools that enhance productivity.'
+                    description: 'Custom tools and automated workflows designed to reduce repetitive work and improve efficiency.'
                   },
                   {
                     icon: Users,
                     title: 'Technical Consultation',
-                    description: 'Strategic guidance on architecture, AI integration, and digital transformation.'
+                    description: 'Practical guidance for planning applications, selecting technologies, integrating AI, and solving technical challenges.'
                   }
                 ].map((capability, index) => (
                   <motion.div
@@ -439,7 +461,7 @@ export default function Portfolio() {
               {/* CTA Section */}
               <div className="space-y-6 pt-8 border-t border-[#FFD700]/20">
                 <p className="text-base text-gray-400 font-mono">
-                  <span className="text-[#FFD700]">{'>'}</span> Status: Open to full-time roles, collaborations, and select freelance projects.
+                  <span className="text-[#FFD700]">{'>'}</span> Have an idea? Whether you're starting from scratch, improving an existing project, or exploring AI integration, I'd love to hear what you're working on.
                 </p>
                 
                 <motion.a
@@ -449,7 +471,7 @@ export default function Portfolio() {
                   className="group relative inline-flex items-center gap-2 px-10 py-4 bg-gradient-to-r from-[#8B0000] to-[#FFD700] rounded text-white font-mono font-medium text-base overflow-hidden shadow-lg shadow-[#FFD700]/20"
                 >
                   <span className="relative z-10 flex items-center gap-2">
-                    $ execute collaboration.sh
+                    $ start_project.sh
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </span>
                   <motion.div
@@ -564,32 +586,32 @@ export default function Portfolio() {
                   <div className="space-y-6 text-gray-300 text-base md:text-lg leading-relaxed">
                     {/* Opening statement */}
                     <p className="text-lg md:text-xl text-white font-light">
-                      I'm a software engineer and creative technologist working at the intersection of AI, symbolic storytelling, and multimedia design.
+                      I'm a software engineer, creative technologist, and creator. I create code, art, intelligent systems, interactive experiences, and the worlds that connect them.
                     </p>
 
                     {/* Technical foundation */}
                     <p>
-                      With a foundation in full-stack development and machine learning, I build intelligent systems that adapt, learn, and create meaning. My primary language is <span className="text-[#FFD700] font-mono">C#</span>, where I first developed my programming foundation, and I've since expanded into <span className="text-[#FFD700] font-mono">Python, JavaScript, SQL, HTML, and CSS</span>.
+                      My education includes <span className="text-[#FFD700] font-mono">multimedia programming and design</span>, alongside study in <span className="text-[#FFD700] font-mono">information science</span>. That range lets me move between full-stack engineering, AI and machine learning, data, visual design, and experimental systems.
                     </p>
 
                     {/* Professional experience */}
                     <p>
-                      Professionally, I've worked as a <span className="text-white font-medium">Software Engineer at Vertafore</span>, maintaining production codebases, building internal tools, debugging complex systems, and contributing to real-world applications used at scale.
+                      My professional experience includes software engineering work at <span className="text-white font-medium">Vertafore and MGA Systems</span>. I also contribute through contract work across varied roles with <span className="text-white font-medium">AI Handshake</span>, alongside independent freelance work for clients and collaborators.
                     </p>
 
                     {/* Creative skills */}
                     <p>
-                      Beyond engineering, I design and develop interactive experiences from scratch using tools like <span className="text-[#FFD700] font-mono">Adobe Creative Suite</span> — Photoshop, Illustrator, After Effects, and InDesign — blending logic and visual storytelling into cohesive digital systems.
+                      Projects such as <span className="text-[#FFD700] font-mono">Cybo and Cybo Wrld</span> represent the direction of that work: bringing software, machine intelligence, art, design, worldbuilding, and experimental engineering together.
                     </p>
 
                     {/* Hardware/maker side */}
                     <p>
-                      Outside of code, I build. From a self-assembled robotic arm powered by <span className="text-[#FFD700] font-mono">Arduino</span> to a <span className="text-[#FFD700] font-mono">Raspberry Pi AI assistant</span> integrating voice and automation, I experiment at the edge of software and hardware.
+                      I continue to explore robotics and physical computing through projects including a self-assembled <span className="text-[#FFD700] font-mono">Arduino robotic arm</span> and a <span className="text-[#FFD700] font-mono">Raspberry Pi AI assistant</span> integrating voice and automation.
                     </p>
 
                     {/* Core philosophy */}
                     <p className="text-white font-light">
-                      At my core, I explore the space between structure and symbolism — where engineering meets art.
+                      NergalLabs is where these interests come together: a creative laboratory for the systems, experiences, and ideas I'm working to bring into reality.
                     </p>
 
                     {/* ASCII spacer */}
@@ -599,7 +621,7 @@ export default function Portfolio() {
 
                     {/* Closing statement - highlighted */}
                     <p className="text-[#FFD700] text-lg md:text-xl font-light font-mono border-l-2 border-[#FFD700] pl-6">
-                      <span className="text-[#8B0000]">//</span> Currently crafting experiences that bridge the digital and the cosmic.
+                      <span className="text-[#8B0000]">//</span> I don't just want to use technology. I want to understand it, shape it, and build with it.
                     </p>
                   </div>
                 </motion.div>
@@ -645,7 +667,7 @@ export default function Portfolio() {
               </div>
 
               <p className="text-lg text-gray-400 font-mono text-center">
-                <span className="text-[#FFD700]">//</span> Interested in collaboration, innovation, or just a conversation about the future?
+                <span className="text-[#FFD700]">//</span> Hiring, collaborating, or building something new? Send a quick note or share a fuller project brief.
               </p>
 
               {/* Social Links */}
@@ -701,8 +723,9 @@ export default function Portfolio() {
 
               {/* CTA Button */}
               <div className="flex flex-col items-center gap-4">
-                <motion.a
-                  href="mailto:nergalworks@gmail.com"
+                <motion.button
+                  type="button"
+                  onClick={() => window.dispatchEvent(new CustomEvent('open-contact-panel'))}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="group relative inline-flex items-center gap-2 px-10 py-4 bg-gradient-to-r from-[#8B0000] to-[#FFD700] rounded text-white font-mono font-medium text-base overflow-hidden shadow-lg shadow-[#FFD700]/20"
@@ -717,7 +740,7 @@ export default function Portfolio() {
                     whileHover={{ x: 0 }}
                     transition={{ duration: 0.3 }}
                   />
-                </motion.a>
+                </motion.button>
 
                 {/* Status indicator */}
                 <div className="flex items-center gap-3 text-sm font-mono text-gray-500">

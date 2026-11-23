@@ -9,6 +9,8 @@ type Category =
   | 'AI Systems'
   | 'Creative Tech'
   | 'Web Experiments'
+  | 'Raw Thoughts'
+  | 'Music'
   | 'Personal Field Notes'
   | 'Solarpunk Theory'
   | 'Stories from My AI';
@@ -26,12 +28,28 @@ const categories: Category[] = [
   'AI Systems',
   'Creative Tech',
   'Web Experiments',
+  'Raw Thoughts',
+  'Music',
   'Personal Field Notes',
   'Solarpunk Theory',
   'Stories from My AI',
 ];
 
 const fieldNotes: FieldNote[] = [
+  {
+    title: 'The Unfiltered Feed',
+    category: 'Raw Thoughts',
+    date: 'Ongoing',
+    excerpt:
+      'A living notebook for ideas before they become polished essays: observations, questions, fragments, strong opinions, and honest thoughts from the middle of building and creating.',
+  },
+  {
+    title: 'Music, Sound, and the Worlds Between',
+    category: 'Music',
+    date: 'Listening log',
+    excerpt:
+      'A growing space for the music, sounds, and creative signals shaping what I make — part listening journal, part atmosphere, and part map of influence.',
+  },
   {
     title: 'Verdantia: The Verdant Link',
     category: 'Stories from My AI',
@@ -264,7 +282,7 @@ export default function Blog() {
                     className="mt-4 max-w-xl text-[17px] leading-relaxed text-[#d8d0c4]"
                     style={{ fontFamily: sans }}
                   >
-                    Field notes on creative systems, AI, and the craft of building humane technology.
+                    Stories, experiments, music, and raw thoughts from the process of building and creating.
                   </p>
                   <div className="mt-6 flex flex-wrap gap-4" style={{ fontFamily: sans }}>
                     <a
@@ -303,7 +321,7 @@ export default function Blog() {
                 className="mt-4 max-w-xl text-[15px] leading-relaxed text-[#d8d0c4]"
                 style={{ fontFamily: sans }}
               >
-                Field notes on creative systems, AI, and the craft of building humane technology.
+                Stories, experiments, music, and raw thoughts from the process of building and creating.
               </p>
               <div className="mt-6 flex flex-wrap gap-4" style={{ fontFamily: sans }}>
                 <a
@@ -327,7 +345,7 @@ export default function Blog() {
             <div className="mx-auto max-w-[1120px] px-4 sm:px-6 py-4">
               <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
                 <p className="text-[13px] text-[#a89f8f]" style={{ fontFamily: sans }}>
-                  Opinion &amp; analysis from the lab desk.
+                  Stories, sound, experiments, and unfiltered notes from the lab desk.
                 </p>
                 <p className="text-[12px] text-[#7d7668]" style={{ fontFamily: sans }}>
                   Updated regularly
