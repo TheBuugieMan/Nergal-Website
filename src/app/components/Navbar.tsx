@@ -58,8 +58,8 @@ export function Navbar() {
     { label: 'Projects', type: 'section', target: 'projects' },
     { label: 'About Me', type: 'section', target: 'about-me' },
     { label: 'Blog', type: 'route', target: '/blog' },
+    { label: 'Work', type: 'section', target: 'work-with-me' },
     { label: 'Contact', type: 'section', target: 'contact' },
-    { label: 'Work With Me', type: 'section', target: 'work-with-me' },
   ] as const;
 
   return (
@@ -110,7 +110,7 @@ export function Navbar() {
             </motion.div>
 
             {/* Navigation Links */}
-            <div className="grid w-full max-w-sm grid-cols-2 items-center gap-x-4 gap-y-2 sm:max-w-md sm:gap-x-6 md:flex md:w-auto md:max-w-full md:flex-nowrap md:justify-end md:gap-8">
+            <div className="flex w-full max-w-full flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:gap-x-6 md:w-auto md:flex-nowrap md:justify-end md:gap-8">
               {navItems.map((item, i) => (
                 <motion.button
                   key={item.label}
@@ -126,7 +126,7 @@ export function Navbar() {
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
-                  className={`text-white text-sm sm:text-base md:text-lg font-mono tracking-wide transition-colors duration-300 hover:text-[#FFD700] relative group whitespace-nowrap px-0.5 ${item.label === 'Work With Me' ? 'col-span-2 justify-self-center md:col-auto' : 'justify-self-center md:justify-self-auto'}`}
+                  className="text-white text-sm sm:text-base md:text-lg font-mono tracking-wide transition-colors duration-300 hover:text-[#FFD700] relative group whitespace-nowrap px-0.5"
                 >
                   <span className="text-[#FFD700] mr-1">$</span>{item.label.toLowerCase().replace(' ', '_')}
                   <motion.div

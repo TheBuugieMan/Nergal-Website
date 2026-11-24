@@ -33,7 +33,7 @@ export default function Portfolio() {
     { label: 'Chronicles', action: () => navigate('/blog') },
     { label: 'About', action: () => scrollToSection('about-me') },
     { label: 'Contact', action: () => scrollToSection('contact') },
-    { label: 'Work With Me', action: () => scrollToSection('work-with-me') },
+    { label: 'Work', action: () => scrollToSection('work-with-me') },
   ];
 
   const supaWorldProject = {
@@ -203,7 +203,7 @@ export default function Portfolio() {
                   onClick={node.action}
                   whileHover={{ y: -2, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="group relative rounded-xl border border-[#dfbe68]/30 bg-[#0b1018]/65 px-3 md:px-4 py-2.5 md:py-3 text-sm font-mono text-[#f8f2dc] transition-colors hover:border-[#f1d07e] hover:bg-[#101824]/75"
+                  className={`group relative rounded-xl border border-[#dfbe68]/30 bg-[#0b1018]/65 px-3 md:px-4 py-2.5 md:py-3 text-sm font-mono text-[#f8f2dc] transition-colors hover:border-[#f1d07e] hover:bg-[#101824]/75 ${node.label === 'Work' ? 'col-span-2 w-1/2 justify-self-center md:col-span-1 md:w-auto' : ''}`}
                 >
                   <span className="absolute left-2 top-1 text-[10px] text-[#d8b557]/70">◌</span>
                   <span className="absolute right-2 bottom-1 text-[10px] text-[#d8b557]/70">◌</span>
